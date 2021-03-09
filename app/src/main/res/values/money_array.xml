@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="UAH">
+        <item>1000</item>
+        <item>500</item>
+        <item>200</item>
+        <item>100</item>
+        <item>50</item>
+        <item>20</item>
+        <item>10</item>
+        <item>5</item>
+        <item>2</item>
+        <item>1</item>
+        <item>0.5</item>
+        <item>0.1</item>
+    </string-array>
+
+    <string-array name="USD">
+        <item>100</item>
+        <item>50</item>
+        <item>20</item>
+        <item>10</item>
+        <item>5</item>
+        <item>2</item>
+        <item>1</item>
+        <item>0.5</item>
+        <item>0.25</item>
+        <item>0.05</item>
+        <item>0.01</item>
+    </string-array>
+
+    <string-array name="EUR">
+        <item>500</item>
+        <item>200</item>
+        <item>100</item>
+        <item>50</item>
+        <item>20</item>
+        <item>10</item>
+        <item>5</item>
+        <item>2</item>
+        <item>1</item>
+        <item>0.5</item>
+        <item>0.2</item>
+        <item>0.1</item>
+        <item>0.05</item>
+        <item>0.02</item>
+        <item>0.01</item>
+    </string-array>
+
+    <string-array name="RUB">
+        <item>5000</item>
+        <item>2000</item>
+        <item>1000</item>
+        <item>500</item>
+        <item>200</item>
+        <item>100</item>
+        <item>50</item>
+        <item>10</item>
+        <item>5</item>
+        <item>2</item>
+        <item>1</item>
+        <item>0.5</item>
+        <item>0.1</item>
+        <item>0.05</item>
+        <item>0.01</item>
+    </string-array>
+</resources>
