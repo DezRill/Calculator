@@ -1,7 +1,5 @@
 package com.dezrill.support;
 
-import android.widget.RadioButton;
-
 import java.io.Serializable;
 
 public class Settings implements Serializable {

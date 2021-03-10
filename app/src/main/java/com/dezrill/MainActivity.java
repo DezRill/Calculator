@@ -13,20 +13,21 @@ import android.widget.RadioGroup;
 
 import com.dezrill.calculator.R;
 import com.dezrill.support.CustomListViewAdapter;
+import com.dezrill.support.ItemInList;
 import com.dezrill.support.Settings;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     private ListView valuesListView;
     private RadioButton radioButtonUAH, radioButtonUSD, radioButtonEUR, radioButtonRUB;
     private RadioGroup currenciesGroup;
-    private String[] array;
+    private String[] valuesArray;
+    private ArrayList<ItemInList> items;
     private CustomListViewAdapter adapter;
     private Settings settings=new Settings();
 
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
         LoadSettings();
         SetAdapter();
-        RenderListView();
         setListViewOnClickListener();
     }
 
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     {
         for (int i=0;i<adapter.getCount();i++)
         {
-            if (Float.parseFloat(adapter.getItem(i))<1) {
+            if (Double.parseDouble(adapter.getItem(i).getDenomination())<1) {
                 adapter.remove(adapter.getItem(i));
                 i--;
             }
@@ -108,30 +108,34 @@ public class MainActivity extends AppCompatActivity {
         switch (temp.getText().toString())
         {
             case "UAH":{
-                array=getResources().getStringArray(R.array.UAH);
+                valuesArray=getResources().getStringArray(R.array.UAH);
+                UpdateItemsArray("UAH");
                 adapter.clear();
-                adapter.addAll(array);
+                adapter.addAll(items);
                 if (settings!=null && !settings.isUAHcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
             }break;
             case "USD":{
-                array=getResources().getStringArray(R.array.USD);
+                valuesArray=getResources().getStringArray(R.array.USD);
+                UpdateItemsArray("USD");
                 adapter.clear();
-                adapter.addAll(array);
+                adapter.addAll(items);
                 if (settings!=null && !settings.isUSDcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
             }break;
             case "EUR":{
-                array=getResources().getStringArray(R.array.EUR);adapter.clear();
+                valuesArray=getResources().getStringArray(R.array.EUR);
+                UpdateItemsArray("EUR");
                 adapter.clear();
-                adapter.addAll(array);
+                adapter.addAll(items);
                 if (settings!=null && !settings.isEURcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
             }break;
             case "RUB":{
-                array=getResources().getStringArray(R.array.RUB);
+                valuesArray=getResources().getStringArray(R.array.RUB);
+                UpdateItemsArray("RUB");
                 adapter.clear();
-                adapter.addAll(array);
+                adapter.addAll(items);
                 if (settings!=null && !settings.isRUBcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
             }break;
@@ -139,15 +143,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void SetAdapter(){
-        RadioButton temp=findViewById(currenciesGroup.getCheckedRadioButtonId());
-
-        switch (temp.getText().toString()){
-            case "UAH":array=getResources().getStringArray(R.array.UAH); break;
-            case "USD":array=getResources().getStringArray(R.array.USD); break;
-            case "EUR":array=getResources().getStringArray(R.array.EUR); break;
-            case "RUB":array=getResources().getStringArray(R.array.RUB); break;
-        }
-        adapter=new CustomListViewAdapter(this, new ArrayList<String>(Arrays.asList(array)), temp.getText().toString());
+        CreateItemsArray();
+        adapter=new CustomListViewAdapter(this, items);
+        if (settings!=null && !settings.isRUBcoins()) RemoveBelowOne();
         valuesListView.setAdapter(adapter);
     }
 
@@ -159,10 +157,35 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent=new Intent(MainActivity.this, CalculatorActivity.class);
                 intent.putExtra("currency", temp.getText().toString());
-                intent.putExtra("value", Double.valueOf(adapter.getItem(position)));
+                intent.putExtra("value", Double.valueOf(adapter.getItem(position).getDenomination()));
                 startActivity(intent);
                 finish();
             }
         });
+    }
+
+    private void CreateItemsArray() {
+        RadioButton temp=findViewById(currenciesGroup.getCheckedRadioButtonId());
+
+        switch (temp.getText().toString()) {
+            case "UAH":valuesArray=getResources().getStringArray(R.array.UAH); break;
+            case "USD":valuesArray=getResources().getStringArray(R.array.USD); break;
+            case "EUR":valuesArray=getResources().getStringArray(R.array.EUR); break;
+            case "RUB":valuesArray=getResources().getStringArray(R.array.RUB); break;
+        }
+        items=new ArrayList<>();
+        UpdateItemsArray(temp.getText().toString());
+    }
+
+    private void UpdateItemsArray(String currency) {
+        items=new ArrayList<>();
+        for (String value: valuesArray){
+            ItemInList item=new ItemInList();
+            item.setCurrency(currency);
+            item.setDenomination(value);
+            item.setCount("0");
+            item.setSum("0.00");
+            items.add(item);
+        }
     }
 }

@@ -14,20 +14,14 @@ import com.dezrill.calculator.R;
 
 import java.util.ArrayList;
 
-public class CustomListViewAdapter extends ArrayAdapter<String> {
-    Context context;
-    String currency;
-    //double sum;
-    //int count;
-    ArrayList<String> denomination;
+public class CustomListViewAdapter extends ArrayAdapter<ItemInList> {
+    private Context context;
+    private ArrayList<ItemInList> items;
 
-    public CustomListViewAdapter (Context context, ArrayList<String> denomination, String currency){
-        super(context, R.layout.row, R.id.denominationRowTextView, denomination);
+    public CustomListViewAdapter (Context context, ArrayList<ItemInList> items){
+        super(context, R.layout.row, R.id.denominationRowTextView, items);
         this.context=context;
-        this.currency=currency;
-        this.denomination=denomination;
-        //this.result=result;
-        //this.count=count;
+        this.items=items;
     }
 
     @NonNull
@@ -40,10 +34,10 @@ public class CustomListViewAdapter extends ArrayAdapter<String> {
         TextView countTextView=row.findViewById(R.id.countRowTextView);
         TextView sumTextView=row.findViewById(R.id.sumRowTextView);
 
-        currencyTextView.setText(currency);
-        denominationTextView.setText(denomination.get(position));
-        //res.setText(String.valueOf(result[position]));
-        //cou.setText(String.valueOf(count[position]));
+        currencyTextView.setText(items.get(position).getCurrency());
+        denominationTextView.setText(items.get(position).getDenomination());
+        countTextView.setText(items.get(position).getCount());
+        sumTextView.setText(items.get(position).getSum());
 
         return row;
     }
