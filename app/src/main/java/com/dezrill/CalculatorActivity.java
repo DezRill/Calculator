@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.dezrill.calculator.R;
 
 public class CalculatorActivity extends AppCompatActivity {
-    TextView sumMainTextView, sumValueTextView, resultTextView;
+    TextView chosenValueTextView, sumValueTextView, resultTextView;
     String currency;
     double denomination;
 
@@ -21,7 +21,7 @@ public class CalculatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
-        sumMainTextView=findViewById(R.id.chosenValueTextView);
+        chosenValueTextView=findViewById(R.id.chosenValueTextView);
         sumValueTextView=findViewById(R.id.sumValueTextView);
         resultTextView=findViewById(R.id.resultTextView);
 
@@ -29,7 +29,7 @@ public class CalculatorActivity extends AppCompatActivity {
         currency=intent.getStringExtra("currency");
         denomination=intent.getDoubleExtra("value", 0);
 
-        sumMainTextView.setText(denomination+" "+currency);
+        chosenValueTextView.setText(denomination+" "+currency);
         resultTextView.setText(resultTextView.getText()+" "+currency);
     }
 
@@ -61,10 +61,12 @@ public class CalculatorActivity extends AppCompatActivity {
     public void onClickNumber(View view) {
         Button btn=findViewById(view.getId());
         String str=sumValueTextView.getText().toString();
-        if (str.substring(str.length()-1).equals("0")) str=str.substring(0,str.length()-1);
-        str+=btn.getText();
-        sumValueTextView.setText(str);
-        SumAll();
+        if (!TooMuch()){
+            if (str.substring(str.length()-1).equals("0")) str=str.substring(0,str.length()-1);
+            str+=btn.getText();
+            sumValueTextView.setText(str);
+            SumAll();
+        }
     }
 
     public void onClickPlus(View view) {
@@ -88,6 +90,16 @@ public class CalculatorActivity extends AppCompatActivity {
         for (int i=0;i<counts.length;i++) {
             result=(Integer.parseInt(counts[i])*denomination)+result;
         }
-        resultTextView.setText("= "+result+" "+currency);
+        //str=Double.toString(result);
+        str=String.format("%.1f", result);
+        resultTextView.setText("= "+str+" "+currency);
+    }
+
+    private boolean TooMuch()
+    {
+        String str=sumValueTextView.getText().toString();
+        if (str.length()>6) str=str.substring(str.length()-7);
+        if (str.length()>=6) return true;
+        else return false;
     }
 }
