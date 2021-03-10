@@ -1,6 +1,7 @@
 package com.dezrill;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,10 +46,6 @@ public class CalculatorActivity extends AppCompatActivity {
 
     public void onClickDeleteLast(View view) {
         String str=textView3.getText().toString();
-        /*if (str.substring(str.length()-2,str.length()-2).equals(" ")) str=str.substring(0,str.length()-1)+"0";
-        else if (str.substring(str.length()-1).equals("0")) str=str.substring(0,str.length()-4);
-        else if (str.length()==1) str="0";
-        else str=str.substring(str.length()-1);*/
         if (str.length()==1) str="0";
         else if (str.substring(str.length()-2).equals(" 0")) str=str.substring(0,str.length()-4);
         else str=str.substring(0,str.length()-1);

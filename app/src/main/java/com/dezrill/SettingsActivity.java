@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.dezrill.calculator.R;
 import com.dezrill.support.Settings;
@@ -113,8 +114,6 @@ public class SettingsActivity extends AppCompatActivity {
             else if (radioButton8.getId()==settings.getDefaultValue()) radioButton8.setChecked(true);
         }
         catch (IOException | ClassNotFoundException e) {
-            Toast toast=Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG);
-            toast.show();
         }
     }
 
@@ -128,8 +127,6 @@ public class SettingsActivity extends AppCompatActivity {
             fos.close();
         }
         catch (IOException e) {
-            Toast toast=Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG);
-            toast.show();
         }
     }
 }

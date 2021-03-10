@@ -1,6 +1,7 @@
 package com.dezrill;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -88,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
             else if (settings.getDefaultValue()==R.id.radioButton8) radioButton4.setChecked(true);
         }
         catch (IOException | ClassNotFoundException e) {
-            Toast toast=Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG);
-            toast.show();
         }
     }
 
