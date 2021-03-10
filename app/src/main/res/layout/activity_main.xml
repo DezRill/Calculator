@@ -52,7 +52,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
-            android:layout_width="144dp"
+            android:layout_width="330dp"
             android:layout_height="match_parent"
             android:background="@color/purple_200"
             android:orientation="vertical">
@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:gravity="left"
                 android:text="@string/sum_static"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -79,7 +80,7 @@
 
             <Button
                 android:id="@+id/calculateButton"
-                android:layout_width="match_parent"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:text="@string/recalculate"
                 android:textSize="12sp"
@@ -87,9 +88,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="170dp"
+            android:layout_weight="1"
             android:background="@color/purple_200"
             android:orientation="vertical">
 
@@ -97,12 +98,14 @@
                 android:id="@+id/currenciesGroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:animateLayoutChanges="false">
 
                 <RadioButton
                     android:id="@+id/UAHRadioButton"
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:checked="true"
                     android:gravity="center"
                     android:layoutDirection="rtl"
@@ -112,7 +115,8 @@
                 <RadioButton
                     android:id="@+id/USDRadioButton"
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:layoutDirection="rtl"
                     android:onClick="onClickCheck"
@@ -121,7 +125,8 @@
                 <RadioButton
                     android:id="@+id/EURRadioButton"
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:layoutDirection="rtl"
                     android:onClick="onClickCheck"
@@ -130,7 +135,8 @@
                 <RadioButton
                     android:id="@+id/RUBRadioButton"
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:layoutDirection="rtl"
                     android:onClick="onClickCheck"

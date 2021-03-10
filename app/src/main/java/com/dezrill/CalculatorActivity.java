@@ -10,11 +10,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.dezrill.calculator.R;
+import com.dezrill.support.ItemInList;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class CalculatorActivity extends AppCompatActivity {
     TextView chosenValueTextView, sumValueTextView, resultTextView;
-    String currency;
-    double denomination;
+    ArrayList<ItemInList> items;
+    int position;
+    String counts[];
+    double result=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +32,11 @@ public class CalculatorActivity extends AppCompatActivity {
         resultTextView=findViewById(R.id.resultTextView);
 
         Intent intent=getIntent();
-        currency=intent.getStringExtra("currency");
-        denomination=intent.getDoubleExtra("value", 0);
+        items=(ArrayList<ItemInList>) intent.getSerializableExtra("Items");
+        position=intent.getIntExtra("Position", 0);
 
-        chosenValueTextView.setText(denomination+" "+currency);
-        resultTextView.setText(resultTextView.getText()+" "+currency);
+        chosenValueTextView.setText(items.get(position).getDenomination()+" "+items.get(position).getCurrency());
+        resultTextView.setText(resultTextView.getText()+" "+items.get(position).getCurrency());
     }
 
     public void onClickBackToMain(View view) {
@@ -62,7 +68,8 @@ public class CalculatorActivity extends AppCompatActivity {
         Button btn=findViewById(view.getId());
         String str=sumValueTextView.getText().toString();
         if (!TooMuch()){
-            if (str.substring(str.length()-1).equals("0")) str=str.substring(0,str.length()-1);
+            if (str.substring(str.length()-1).equals("0") && str.length()>1) str=str.substring(0,str.length()-1);
+            if (str.length()==1 && str.equals("0")) str="";
             str+=btn.getText();
             sumValueTextView.setText(str);
             SumAll();
@@ -74,6 +81,17 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     public void onClickOK(View view) {
+        int count=0;
+        String string=String.format(Locale.ROOT,"%.2f", result);
+        for (String str:counts) {
+            count+=Integer.parseInt(str);
+        }
+        items.get(position).setCount(String.valueOf(count));
+        items.get(position).setSum(String.valueOf(result));
+        Intent intent=new Intent(CalculatorActivity.this, MainActivity.class);
+        intent.putExtra("Items", items);
+        startActivity(intent);
+        finish();
     }
 
     private void BackToMain() {
@@ -83,23 +101,20 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     private void SumAll() {
-        String counts[];
-        double result=0;
         String str=sumValueTextView.getText().toString();
         counts=str.split(" \\+ ");
         for (int i=0;i<counts.length;i++) {
-            result=(Integer.parseInt(counts[i])*denomination)+result;
+            result=(Integer.parseInt(counts[i])*Double.parseDouble(items.get(position).getDenomination()))+result;
         }
-        //str=Double.toString(result);
-        str=String.format("%.1f", result);
-        resultTextView.setText("= "+str+" "+currency);
+        str=String.format(Locale.ROOT,"%.2f", result);
+        resultTextView.setText("= "+str+" "+ items.get(position).getCurrency());
     }
 
     private boolean TooMuch()
     {
         String str=sumValueTextView.getText().toString();
-        if (str.length()>6) str=str.substring(str.length()-7);
-        if (str.length()>=6) return true;
+        String[] needLast=str.split(" \\+ ");
+        if (needLast[needLast.length-1].length()>6) return true;
         else return false;
     }
 }

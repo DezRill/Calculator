@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.dezrill.calculator.R;
 import com.dezrill.support.CustomListViewAdapter;
@@ -20,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ItemInList> items;
     private CustomListViewAdapter adapter;
     private Settings settings=new Settings();
+    private TextView sumValueTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +45,12 @@ public class MainActivity extends AppCompatActivity {
         radioButtonEUR=findViewById(R.id.EURRadioButton);
         radioButtonRUB=findViewById(R.id.RUBRadioButton);
         currenciesGroup=findViewById(R.id.currenciesGroup);
+        sumValueTextView=findViewById(R.id.sumValueTextView);
 
         LoadSettings();
         SetAdapter();
         setListViewOnClickListener();
+        BackFromCalculate();
     }
 
     public void onClickCheck(View view) {
@@ -114,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter.addAll(items);
                 if (settings!=null && !settings.isUAHcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
+                sumValueTextView.setText("0.00");
             }break;
             case "USD":{
                 valuesArray=getResources().getStringArray(R.array.USD);
@@ -122,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter.addAll(items);
                 if (settings!=null && !settings.isUSDcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
+                sumValueTextView.setText("0.00");
             }break;
             case "EUR":{
                 valuesArray=getResources().getStringArray(R.array.EUR);
@@ -130,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter.addAll(items);
                 if (settings!=null && !settings.isEURcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
+                sumValueTextView.setText("0.00");
             }break;
             case "RUB":{
                 valuesArray=getResources().getStringArray(R.array.RUB);
@@ -138,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter.addAll(items);
                 if (settings!=null && !settings.isRUBcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
+                sumValueTextView.setText("0.00");
             }break;
         }
     }
@@ -153,11 +162,9 @@ public class MainActivity extends AppCompatActivity {
         valuesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                RadioButton temp=findViewById(currenciesGroup.getCheckedRadioButtonId());
-
                 Intent intent=new Intent(MainActivity.this, CalculatorActivity.class);
-                intent.putExtra("currency", temp.getText().toString());
-                intent.putExtra("value", Double.valueOf(adapter.getItem(position).getDenomination()));
+                intent.putExtra("Items", items);
+                intent.putExtra("Position", position);
                 startActivity(intent);
                 finish();
             }
@@ -186,6 +193,27 @@ public class MainActivity extends AppCompatActivity {
             item.setCount("0");
             item.setSum("0.00");
             items.add(item);
+        }
+    }
+
+    private void BackFromCalculate() {
+        Intent intent=getIntent();
+        if (intent.getSerializableExtra("Items")!=null) {
+            items=(ArrayList<ItemInList>) intent.getSerializableExtra("Items");
+            adapter.clear();
+            adapter.addAll(items);
+            if (settings!=null && !settings.isRUBcoins()) RemoveBelowOne();
+            adapter.notifyDataSetChanged();
+
+            double result=0;
+            for(ItemInList item:items) {
+                if (item.getSum()!="0.00") {
+                    result+=Double.parseDouble(item.getSum());
+                }
+            }
+            String str=String.format(Locale.ROOT,"%.2f", result);
+            if (str.length()>10) sumValueTextView.setTextSize(40);
+            sumValueTextView.setText(str);
         }
     }
 }
