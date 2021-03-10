@@ -1,7 +1,6 @@
 package com.dezrill;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.dezrill.calculator.R;
-import com.dezrill.support.MyAdapter;
+import com.dezrill.support.CustomListViewAdapter;
 import com.dezrill.support.Settings;
 
 import java.io.FileInputStream;
@@ -25,11 +23,11 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView listView;
-    private RadioButton radioButton, radioButton2, radioButton3, radioButton4;
-    private RadioGroup radioGroup;
+    private ListView valuesListView;
+    private RadioButton radioButtonUAH, radioButtonUSD, radioButtonEUR, radioButtonRUB;
+    private RadioGroup currenciesGroup;
     private String[] array;
-    private MyAdapter adapter;
+    private CustomListViewAdapter adapter;
     private Settings settings=new Settings();
 
     @Override
@@ -37,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView=findViewById(R.id.listView);
-        radioButton=findViewById(R.id.radioButton);
-        radioButton2=findViewById(R.id.radioButton2);
-        radioButton3=findViewById(R.id.radioButton3);
-        radioButton4=findViewById(R.id.radioButton4);
-        radioGroup=findViewById(R.id.radioGroup);
+        valuesListView=findViewById(R.id.valuesListView);
+        radioButtonUAH=findViewById(R.id.UAHRadioButton);
+        radioButtonUSD=findViewById(R.id.USDRadioButton);
+        radioButtonEUR=findViewById(R.id.EURRadioButton);
+        radioButtonRUB=findViewById(R.id.RUBRadioButton);
+        currenciesGroup=findViewById(R.id.currenciesGroup);
 
         LoadSettings();
         SetAdapter();
@@ -83,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
             ois.close();
             fis.close();
 
-            if (settings.getDefaultValue()==R.id.radioButton5) radioButton.setChecked(true);
-            else if (settings.getDefaultValue()==R.id.radioButton6) radioButton2.setChecked(true);
-            else if (settings.getDefaultValue()==R.id.radioButton7) radioButton3.setChecked(true);
-            else if (settings.getDefaultValue()==R.id.radioButton8) radioButton4.setChecked(true);
+            if (settings.getDefaultValue()==R.id.UAHDefaultRadioButton) radioButtonUAH.setChecked(true);
+            else if (settings.getDefaultValue()==R.id.USDDefaultRadioButton) radioButtonUSD.setChecked(true);
+            else if (settings.getDefaultValue()==R.id.EURDefaultRadioButton) radioButtonEUR.setChecked(true);
+            else if (settings.getDefaultValue()==R.id.RUBDefaultRadioButton) radioButtonRUB.setChecked(true);
         }
         catch (IOException | ClassNotFoundException e) {
         }
@@ -105,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void RenderListView()
     {
-        RadioButton temp=findViewById(radioGroup.getCheckedRadioButtonId());
+        RadioButton temp=findViewById(currenciesGroup.getCheckedRadioButtonId());
 
         switch (temp.getText().toString())
         {
@@ -141,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void SetAdapter(){
-        RadioButton temp=findViewById(radioGroup.getCheckedRadioButtonId());
+        RadioButton temp=findViewById(currenciesGroup.getCheckedRadioButtonId());
 
         switch (temp.getText().toString()){
             case "UAH":array=getResources().getStringArray(R.array.UAH); break;
@@ -149,15 +147,15 @@ public class MainActivity extends AppCompatActivity {
             case "EUR":array=getResources().getStringArray(R.array.EUR); break;
             case "RUB":array=getResources().getStringArray(R.array.RUB); break;
         }
-        adapter=new MyAdapter(this, new ArrayList<String>(Arrays.asList(array)), temp.getText().toString());
-        listView.setAdapter(adapter);
+        adapter=new CustomListViewAdapter(this, new ArrayList<String>(Arrays.asList(array)), temp.getText().toString());
+        valuesListView.setAdapter(adapter);
     }
 
     private void setListViewOnClickListener(){
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        valuesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                RadioButton temp=findViewById(radioGroup.getCheckedRadioButtonId());
+                RadioButton temp=findViewById(currenciesGroup.getCheckedRadioButtonId());
 
                 Intent intent=new Intent(MainActivity.this, CalculatorActivity.class);
                 intent.putExtra("currency", temp.getText().toString());

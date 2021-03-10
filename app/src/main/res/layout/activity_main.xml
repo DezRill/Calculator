@@ -6,32 +6,30 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/uppearMainLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/appNameTextView"
             android:layout_width="155dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/title_main"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="187dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" />
-
         <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="match_parent"
+            android:id="@+id/openSettingsButton"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="9dp"
+            android:layout_marginStart="195dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginBottom="6dp"
             android:layout_weight="1"
             android:background="@color/white"
             android:onClick="onClickOpenSettings"
@@ -41,15 +39,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/calculateLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="145dp"
+        android:background="@color/purple_200"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/uppearMainLinearLayout"
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
@@ -59,7 +58,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/sumTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -69,7 +68,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/sumValueTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -79,7 +78,7 @@
                 android:textSize="50sp" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/calculateButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recalculate"
@@ -88,27 +87,20 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="145dp"
-            android:layout_height="match_parent"
-            android:animateLayoutChanges="true"
-            android:animationCache="true"
-            android:background="@color/purple_200"
-            android:orientation="vertical"></LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="170dp"
             android:background="@color/purple_200"
             android:orientation="vertical">
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/currenciesGroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="false">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/UAHRadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:checked="true"
@@ -118,7 +110,7 @@
                     android:text="@string/UAH" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/USDRadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:gravity="center"
@@ -127,7 +119,7 @@
                     android:text="@string/USD" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/EURRadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:gravity="center"
@@ -136,7 +128,7 @@
                     android:text="@string/EUR" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/RUBRadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:gravity="center"
@@ -149,16 +141,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/smallLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/calculateLinearLayout">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/denominationTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -168,7 +160,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/countTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -179,7 +171,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/sumOnRightTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -191,32 +183,32 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintBottom_toTopOf="@+id/downMainLinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/smallLinearLayout">
 
         <ListView
-            android:id="@+id/listView"
+            android:id="@+id/valuesListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
+        android:id="@+id/downMainLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/openHistoryButton"
             android:layout_width="45dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -226,7 +218,7 @@
             tools:visibility="visible" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/openAboutButton"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -237,7 +229,7 @@
             tools:visibility="visible" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/openCommentButton"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -247,7 +239,7 @@
             tools:visibility="visible" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/saveButton"
             style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -259,7 +251,7 @@
             tools:visibility="visible" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/clearButton"
             style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
             android:layout_width="45dp"
             android:layout_height="wrap_content"

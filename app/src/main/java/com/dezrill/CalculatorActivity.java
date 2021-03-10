@@ -1,7 +1,6 @@
 package com.dezrill;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 import com.dezrill.calculator.R;
 
 public class CalculatorActivity extends AppCompatActivity {
-    TextView textView2, textView3, textView18;
+    TextView sumMainTextView, sumValueTextView, resultTextView;
     String currency;
     double denomination;
 
@@ -22,16 +21,16 @@ public class CalculatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
-        textView2=findViewById(R.id.textView2);
-        textView3=findViewById(R.id.textView3);
-        textView18=findViewById(R.id.textView18);
+        sumMainTextView=findViewById(R.id.chosenValueTextView);
+        sumValueTextView=findViewById(R.id.sumValueTextView);
+        resultTextView=findViewById(R.id.resultTextView);
 
         Intent intent=getIntent();
         currency=intent.getStringExtra("currency");
         denomination=intent.getDoubleExtra("value", 0);
 
-        textView2.setText(denomination+" "+currency);
-        textView18.setText(textView18.getText()+" "+currency);
+        sumMainTextView.setText(denomination+" "+currency);
+        resultTextView.setText(resultTextView.getText()+" "+currency);
     }
 
     public void onClickBackToMain(View view) {
@@ -45,31 +44,31 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     public void onClickDeleteLast(View view) {
-        String str=textView3.getText().toString();
+        String str=sumValueTextView.getText().toString();
         if (str.length()==1) str="0";
         else if (str.substring(str.length()-2).equals(" 0")) str=str.substring(0,str.length()-4);
         else str=str.substring(0,str.length()-1);
         if (str.substring(str.length()-1).equals(" ")) str+="0";
-        textView3.setText(str);
+        sumValueTextView.setText(str);
         SumAll();
     }
 
     public void onClickDeleteAll(View view) {
-        textView3.setText("0");
-        textView18.setText("= 0");
+        sumValueTextView.setText("0");
+        resultTextView.setText("= 0");
     }
 
     public void onClickNumber(View view) {
         Button btn=findViewById(view.getId());
-        String str=textView3.getText().toString();
+        String str=sumValueTextView.getText().toString();
         if (str.substring(str.length()-1).equals("0")) str=str.substring(0,str.length()-1);
         str+=btn.getText();
-        textView3.setText(str);
+        sumValueTextView.setText(str);
         SumAll();
     }
 
     public void onClickPlus(View view) {
-        textView3.setText(textView3.getText()+" + 0");
+        sumValueTextView.setText(sumValueTextView.getText()+" + 0");
     }
 
     public void onClickOK(View view) {
@@ -84,11 +83,11 @@ public class CalculatorActivity extends AppCompatActivity {
     private void SumAll() {
         String counts[];
         double result=0;
-        String str=textView3.getText().toString();
+        String str=sumValueTextView.getText().toString();
         counts=str.split(" \\+ ");
         for (int i=0;i<counts.length;i++) {
             result=(Integer.parseInt(counts[i])*denomination)+result;
         }
-        textView18.setText("= "+result+" "+currency);
+        resultTextView.setText("= "+result+" "+currency);
     }
 }

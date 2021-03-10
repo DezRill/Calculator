@@ -14,14 +14,14 @@ import com.dezrill.calculator.R;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends ArrayAdapter<String> {
+public class CustomListViewAdapter extends ArrayAdapter<String> {
     Context context;
     String currency;
     //double result;
     //int count;
     ArrayList<String> denomination;
 
-    public MyAdapter (Context context, ArrayList<String> denomination, String currency){
+    public CustomListViewAdapter (Context context, ArrayList<String> denomination, String currency){
         super(context, R.layout.row, R.id.textView19, denomination);
         this.context=context;
         this.currency=currency;
