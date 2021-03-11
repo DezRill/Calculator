@@ -87,10 +87,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="9dp"
                 android:layout_weight="0"
+                android:button="@drawable/radio_icons"
                 android:checked="true"
                 android:layoutDirection="rtl"
                 android:onClick="onClickCheсked"
-                android:text="@string/def_value" />
+                android:text="@string/def_value"
+                app:buttonTint="#C687D6" />
         </LinearLayout>
 
         <LinearLayout
@@ -120,9 +122,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="9dp"
                 android:layout_weight="0"
+                android:button="@drawable/radio_icons"
                 android:layoutDirection="rtl"
                 android:onClick="onClickCheсked"
-                android:text="@string/def_value" />
+                android:text="@string/def_value"
+                app:buttonTint="#C687D6" />
         </LinearLayout>
 
         <LinearLayout
@@ -152,9 +156,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="9dp"
                 android:layout_weight="0"
+                android:button="@drawable/radio_icons"
                 android:layoutDirection="rtl"
                 android:onClick="onClickCheсked"
-                android:text="@string/def_value" />
+                android:text="@string/def_value"
+                app:buttonTint="#C687D6" />
         </LinearLayout>
 
         <LinearLayout
@@ -184,9 +190,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="9dp"
                 android:layout_weight="0"
+                android:button="@drawable/radio_icons"
                 android:layoutDirection="rtl"
                 android:onClick="onClickCheсked"
-                android:text="@string/def_value" />
+                android:text="@string/def_value"
+                app:buttonTint="#C687D6" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

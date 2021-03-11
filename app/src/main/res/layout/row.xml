@@ -8,7 +8,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:background="#C687D6"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,46 +17,53 @@
 
         <TextView
             android:id="@+id/currencyRowTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/purple_200"
-            android:text="@string/UAH"
-            android:textSize="22sp" />
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:background="#C687D6"
+            android:gravity="center"
+            android:textColor="#9C27B0"
+            android:textSize="8sp" />
 
         <TextView
             android:id="@+id/denominationRowTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/purple_200"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:background="#C687D6"
+            android:gravity="center|left"
+            android:textColor="@color/white"
             android:textSize="22sp" />
 
         <TextView
             android:id="@+id/xRowTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/purple_200"
+            android:layout_height="match_parent"
+            android:background="#C687D6"
+            android:gravity="center"
             android:text="X"
-            android:textSize="22sp" />
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/countRowTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/purple_200"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:background="#C687D6"
+            android:gravity="center"
             android:text="0"
-            android:textSize="22sp" />
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/sumRowTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#9C27B0"
+            android:background="#B36DCB"
+            android:gravity="center|right"
+            android:paddingEnd="15dp"
             android:text="0.00"
-            android:textSize="22sp" />
+            android:textColor="@color/white"
+            android:textSize="18sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

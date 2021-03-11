@@ -3,10 +3,16 @@ package com.dezrill;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -33,12 +39,14 @@ public class MainActivity extends AppCompatActivity {
     private CustomListViewAdapter adapter;
     private Settings settings=new Settings();
     private TextView sumValueTextView;
+    private Animation blink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        blink=AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         valuesListView=findViewById(R.id.valuesListView);
         radioButtonUAH=findViewById(R.id.UAHRadioButton);
         radioButtonUSD=findViewById(R.id.USDRadioButton);
@@ -54,16 +62,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCheck(View view) {
+        view.startAnimation(blink);
         RenderListView();
     }
 
     public void onClickOpenSettings(View view) {
+        view.startAnimation(blink);
         Intent intent=new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(intent);
         finish();
     }
 
     public void onClickOpenAbout(View view) {
+        view.startAnimation(blink);
         Intent intent=new Intent(MainActivity.this, AboutActivity.class);
         startActivity(intent);
     }
@@ -162,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
         valuesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.startAnimation(blink);
                 Intent intent=new Intent(MainActivity.this, CalculatorActivity.class);
                 intent.putExtra("Items", items);
                 intent.putExtra("Position", position);
@@ -215,5 +227,25 @@ public class MainActivity extends AppCompatActivity {
             if (str.length()>10) sumValueTextView.setTextSize(40);
             sumValueTextView.setText(str);
         }
+    }
+
+    public void onClickOpenHistory(View view) {
+        view.startAnimation(blink);
+    }
+
+    public void onClickOpenCommenting(View view) {
+        view.startAnimation(blink);
+    }
+
+    public void onClickClearAll(View view) {
+        view.startAnimation(blink);
+    }
+
+    public void onClickSave(View view) {
+        view.startAnimation(blink);
+    }
+
+    public void onClickRecalculate(View view) {
+        view.startAnimation(blink);
     }
 }

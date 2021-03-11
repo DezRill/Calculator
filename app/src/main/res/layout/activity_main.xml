@@ -42,7 +42,7 @@
         android:id="@+id/calculateLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="145dp"
-        android:background="@color/purple_200"
+        android:background="#C687D6"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,9 +52,8 @@
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
-            android:layout_width="330dp"
+            android:layout_width="320dp"
             android:layout_height="match_parent"
-            android:background="@color/purple_200"
             android:orientation="vertical">
 
             <TextView
@@ -80,18 +79,23 @@
 
             <Button
                 android:id="@+id/calculateButton"
-                android:layout_width="130dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:autoText="false"
+                android:background="@drawable/calculate_buttonbackground"
+                android:onClick="onClickRecalculate"
                 android:text="@string/recalculate"
+                android:textAllCaps="false"
                 android:textSize="12sp"
-                app:backgroundTint="#9C27B0" />
+                app:backgroundTint="#6E447C" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/purple_200"
+            android:background="#C687D6"
             android:orientation="vertical">
 
             <RadioGroup
@@ -99,48 +103,72 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:animateLayoutChanges="false">
+                android:animateLayoutChanges="false"
+                android:background="@color/white">
 
                 <RadioButton
                     android:id="@+id/UAHRadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
                     android:layout_weight="1"
+                    android:background="#C687D6"
+                    android:button="@drawable/radio_icons"
                     android:checked="true"
                     android:gravity="center"
                     android:layoutDirection="rtl"
                     android:onClick="onClickCheck"
-                    android:text="@string/UAH" />
+                    android:text="@string/UAH"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:buttonTint="@color/white" />
 
                 <RadioButton
                     android:id="@+id/USDRadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
                     android:layout_weight="1"
+                    android:background="#C687D6"
+                    android:button="@drawable/radio_icons"
                     android:gravity="center"
                     android:layoutDirection="rtl"
                     android:onClick="onClickCheck"
-                    android:text="@string/USD" />
+                    android:text="@string/USD"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:buttonTint="@color/white" />
 
                 <RadioButton
                     android:id="@+id/EURRadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
                     android:layout_weight="1"
+                    android:background="#C687D6"
+                    android:button="@drawable/radio_icons"
                     android:gravity="center"
                     android:layoutDirection="rtl"
                     android:onClick="onClickCheck"
-                    android:text="@string/EUR" />
+                    android:text="@string/EUR"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:buttonTint="@color/white" />
 
                 <RadioButton
                     android:id="@+id/RUBRadioButton"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:background="#C687D6"
+                    android:button="@drawable/radio_icons"
                     android:gravity="center"
                     android:layoutDirection="rtl"
                     android:onClick="onClickCheck"
-                    android:text="@string/RUB" />
+                    android:text="@string/RUB"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:buttonTint="@color/white" />
             </RadioGroup>
 
         </LinearLayout>
@@ -171,7 +199,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="center|start"
+            android:paddingStart="5dp"
             android:text="@string/count"
             android:textColor="@color/black"
             android:textSize="12sp" />
@@ -219,6 +248,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/white"
+            android:onClick="onClickOpenHistory"
             android:scaleType="fitCenter"
             android:src="@drawable/hamburger_icon"
             tools:visibility="visible" />
@@ -240,6 +270,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/white"
+            android:onClick="onClickOpenCommenting"
             android:scaleType="fitCenter"
             android:src="@drawable/dialog_icon"
             tools:visibility="visible" />
@@ -250,10 +281,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#6E447C"
+            android:onClick="onClickSave"
             android:text="@string/Save"
             android:textColor="@color/white"
             android:textSize="12sp"
-            app:backgroundTint="#9C27B0"
+            app:backgroundTint="#6E447C"
             tools:visibility="visible" />
 
         <Button
@@ -262,6 +295,8 @@
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/white"
+            android:onClick="onClickClearAll"
             android:text="@string/C"
             android:textColor="@color/black"
             android:textSize="18sp"

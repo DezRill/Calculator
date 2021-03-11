@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import java.util.Locale;
 
 public class CalculatorActivity extends AppCompatActivity {
     TextView chosenValueTextView, sumValueTextView, resultTextView;
+    private Animation blink;
     ArrayList<ItemInList> items;
     int position;
     String counts[];
@@ -27,6 +30,7 @@ public class CalculatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         chosenValueTextView=findViewById(R.id.chosenValueTextView);
         sumValueTextView=findViewById(R.id.sumValueTextView);
         resultTextView=findViewById(R.id.resultTextView);
@@ -40,6 +44,7 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     public void onClickBackToMain(View view) {
+        view.startAnimation(blink);
         BackToMain();
     }
 
@@ -50,21 +55,25 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     public void onClickDeleteLast(View view) {
+        view.startAnimation(blink);
         String str=sumValueTextView.getText().toString();
         if (str.length()==1) str="0";
         else if (str.substring(str.length()-2).equals(" 0")) str=str.substring(0,str.length()-4);
         else str=str.substring(0,str.length()-1);
         if (str.substring(str.length()-1).equals(" ")) str+="0";
         sumValueTextView.setText(str);
+        result=0;
         SumAll();
     }
 
     public void onClickDeleteAll(View view) {
+        view.startAnimation(blink);
         sumValueTextView.setText("0");
         resultTextView.setText("= 0");
     }
 
     public void onClickNumber(View view) {
+        view.startAnimation(blink);
         Button btn=findViewById(view.getId());
         String str=sumValueTextView.getText().toString();
         if (!TooMuch()){
@@ -77,10 +86,12 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     public void onClickPlus(View view) {
+        view.startAnimation(blink);
         sumValueTextView.setText(sumValueTextView.getText()+" + 0");
     }
 
     public void onClickOK(View view) {
+        view.startAnimation(blink);
         int count=0;
         String string=String.format(Locale.ROOT,"%.2f", result);
         for (String str:counts) {
