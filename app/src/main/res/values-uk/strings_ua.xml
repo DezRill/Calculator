@@ -18,4 +18,9 @@
     <string name="txt_hyperlink">Complife.ua➔</string>
     <string name="calculator">Калькулятор</string>
     <string name="language">Мова</string>
+    <string name="confirm">OK</string>
+    <string name="cancel">Скасувати</string>
+    <string name="warning">Попередження</string>
+    <string name="clearInputsAlert">Ви дійсно хочете очистити записи?</string>
+    <string name="changeCurrencyAlert">Перемикання валюти призведе до втрати даних</string>
 </resources>

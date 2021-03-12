@@ -17,4 +17,9 @@
     <string name="txt_hyperlink">Complife.ua➔</string>
     <string name="calculator">Calculator</string>
     <string name="language">Language</string>
+    <string name="confirm">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="warning">Warning</string>
+    <string name="clearInputsAlert">Do you really want to clear the inputs?</string>
+    <string name="changeCurrencyAlert">Switching currency will lead to data loss</string>
 </resources>

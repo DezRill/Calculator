@@ -98,7 +98,7 @@ public class CalculatorActivity extends AppCompatActivity {
             count+=Integer.parseInt(str);
         }
         items.get(position).setCount(String.valueOf(count));
-        items.get(position).setSum(String.valueOf(result));
+        items.get(position).setSum(string);
         Intent intent=new Intent(CalculatorActivity.this, MainActivity.class);
         intent.putExtra("Items", items);
         startActivity(intent);

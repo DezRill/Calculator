@@ -1,11 +1,15 @@
 package com.dezrill;
 
+import androidx.annotation.Dimension;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -33,7 +37,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private ListView valuesListView;
-    private RadioButton radioButtonUAH, radioButtonUSD, radioButtonEUR, radioButtonRUB;
+    private RadioButton radioButtonUAH, radioButtonUSD, radioButtonEUR, radioButtonRUB, activeRadioButton;
     private RadioGroup currenciesGroup;
     private String[] valuesArray;
     private ArrayList<ItemInList> items;
@@ -65,7 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickCheck(View view) {
         view.startAnimation(blink);
-        RenderListView();
+        if (!sumValueTextView.getText().equals("0.00")) {
+            currenciesGroup.check(activeRadioButton.getId());
+            NotEmpty(findViewById(view.getId()));
+        }
+        else RenderListView();
     }
 
     public void onClickOpenSettings(View view) {
@@ -125,9 +133,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void RenderListView()
     {
-        RadioButton temp=findViewById(currenciesGroup.getCheckedRadioButtonId());
+        activeRadioButton=findViewById(currenciesGroup.getCheckedRadioButtonId());
 
-        switch (temp.getText().toString())
+        switch (activeRadioButton.getText().toString())
         {
             case "UAH":{
                 valuesArray=getResources().getStringArray(R.array.UAH);
@@ -137,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 if (settings!=null && !settings.isUAHcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
                 sumValueTextView.setText("0.00");
+                sumValueTextView.setTextSize(50);
             }break;
             case "USD":{
                 valuesArray=getResources().getStringArray(R.array.USD);
@@ -146,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 if (settings!=null && !settings.isUSDcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
                 sumValueTextView.setText("0.00");
+                sumValueTextView.setTextSize(50);
             }break;
             case "EUR":{
                 valuesArray=getResources().getStringArray(R.array.EUR);
@@ -155,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 if (settings!=null && !settings.isEURcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
                 sumValueTextView.setText("0.00");
+                sumValueTextView.setTextSize(50);
             }break;
             case "RUB":{
                 valuesArray=getResources().getStringArray(R.array.RUB);
@@ -164,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                 if (settings!=null && !settings.isRUBcoins()) RemoveBelowOne();
                 adapter.notifyDataSetChanged();
                 sumValueTextView.setText("0.00");
+                sumValueTextView.setTextSize(50);
             }break;
         }
     }
@@ -190,16 +202,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void CreateItemsArray() {
-        RadioButton temp=findViewById(currenciesGroup.getCheckedRadioButtonId());
+        activeRadioButton=findViewById(currenciesGroup.getCheckedRadioButtonId());
 
-        switch (temp.getText().toString()) {
+        switch (activeRadioButton.getText().toString()) {
             case "UAH":valuesArray=getResources().getStringArray(R.array.UAH); break;
             case "USD":valuesArray=getResources().getStringArray(R.array.USD); break;
             case "EUR":valuesArray=getResources().getStringArray(R.array.EUR); break;
             case "RUB":valuesArray=getResources().getStringArray(R.array.RUB); break;
         }
-        items=new ArrayList<>();
-        UpdateItemsArray(temp.getText().toString());
+        UpdateItemsArray(activeRadioButton.getText().toString());
     }
 
     private void UpdateItemsArray(String currency) {
@@ -230,7 +241,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             String str=String.format(Locale.ROOT,"%.2f", result);
-            if (str.length()>10) sumValueTextView.setTextSize(40);
+            if (str.length()>10){
+                if (getWindowManager().getDefaultDisplay().getWidth()<=720) sumValueTextView.setTextSize(30);
+                else sumValueTextView.setTextSize(40);
+            }
             sumValueTextView.setText(str);
         }
     }
@@ -245,6 +259,30 @@ public class MainActivity extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 
+    private void NotEmpty(RadioButton button) {
+        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(R.string.warning);
+        builder.setMessage(R.string.changeCurrencyAlert);
+        builder.setCancelable(false);
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                currenciesGroup.check(button.getId());
+                items.clear();
+                RenderListView();
+            }
+        });
+
+        AlertDialog alertDialog=builder.create();
+        alertDialog.show();
+    }
+
     public void onClickOpenHistory(View view) {
         view.startAnimation(blink);
     }
@@ -255,6 +293,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickClearAll(View view) {
         view.startAnimation(blink);
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(R.string.warning);
+        builder.setMessage(R.string.clearInputsAlert);
+        builder.setCancelable(false);
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                items.clear();
+                RenderListView();
+            }
+        });
+
+        AlertDialog alertDialog=builder.create();
+        alertDialog.show();
     }
 
     public void onClickSave(View view) {

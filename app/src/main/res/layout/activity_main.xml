@@ -19,19 +19,19 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
-            android:gravity="center"
+            android:layout_weight="1"
+            android:gravity="center|start"
             android:text="@string/title_main"
             android:textSize="20sp" />
 
         <ImageButton
             android:id="@+id/openSettingsButton"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="195dp"
+            android:layout_gravity="center|right"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="9dp"
             android:layout_marginBottom="6dp"
-            android:layout_weight="1"
             android:background="@color/white"
             android:onClick="onClickOpenSettings"
             android:scaleType="fitCenter"
@@ -53,8 +53,9 @@
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
-            android:layout_width="320dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -71,9 +72,10 @@
             <TextView
                 android:id="@+id/sumValueTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="65dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="5dp"
+                android:gravity="center|left"
                 android:text="0.00"
                 android:textColor="@color/white"
                 android:textSize="50sp" />
@@ -82,7 +84,10 @@
                 android:id="@+id/calculateButton"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:autoText="false"
                 android:background="@drawable/calculate_buttonbackground"
                 android:onClick="onClickRecalculate"
@@ -95,8 +100,8 @@
         <LinearLayout
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:background="#C687D6"
+            android:gravity="right"
             android:orientation="vertical">
 
             <RadioGroup
@@ -272,6 +277,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:onClick="onClickOpenCommenting"
+            android:padding="4dp"
             android:scaleType="fitCenter"
             android:src="@drawable/dialog_icon"
             tools:visibility="visible" />
