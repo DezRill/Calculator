@@ -19,12 +19,12 @@
             android:id="@+id/backButton"
             android:layout_width="90dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:background="@color/white"
             android:onClick="onClickBackToMain"
+            android:paddingStart="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             android:scaleType="fitCenter"
             android:src="@drawable/back_icon" />
 
@@ -40,53 +40,78 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/currencyTextView"
-        style="@style/Widget.AppCompat.TextView.SpinnerItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#EDE8E8"
-        android:text="@string/currency"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uppearAboutLinearLayout" />
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="506dp"
+        android:id="@+id/linearLayout4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#BFBFBF"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currencyTextView">
+        app:layout_constraintTop_toBottomOf="@+id/uppearAboutLinearLayout">
+
+        <TextView
+            android:id="@+id/currencyTextView"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1"
+            android:background="#F1EEEE"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@string/currency"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#BFBFBF"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/UAHTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
-                android:text="@string/UAH" />
+                android:background="@color/white"
+                android:gravity="center|left"
+                android:text="UAH" />
 
             <Switch
                 android:id="@+id/UAHCoinsSwitch"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="0"
+                android:background="@color/white"
                 android:checked="true"
                 android:text="@string/coins" />
 
             <RadioButton
                 android:id="@+id/UAHDefaultRadioButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="9dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="0"
+                android:background="@color/white"
                 android:button="@drawable/radio_icons"
                 android:checked="true"
                 android:layoutDirection="rtl"
@@ -98,30 +123,38 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#BFBFBF"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/USDTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
-                android:text="@string/USD" />
+                android:background="@color/white"
+                android:gravity="center|left"
+                android:text="USD" />
 
             <Switch
                 android:id="@+id/USDCoinsSwitch"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="0"
+                android:background="@color/white"
                 android:checked="true"
                 android:text="@string/coins" />
 
             <RadioButton
                 android:id="@+id/USDDefaultRadioButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="9dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="0"
+                android:background="@color/white"
                 android:button="@drawable/radio_icons"
                 android:layoutDirection="rtl"
                 android:onClick="onClickCheсked"
@@ -132,30 +165,38 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#BFBFBF"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/EURTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
-                android:text="@string/EUR" />
+                android:background="@color/white"
+                android:gravity="center|left"
+                android:text="EUR" />
 
             <Switch
                 android:id="@+id/EURCoinsSwitch"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="0"
+                android:background="@color/white"
                 android:checked="true"
                 android:text="@string/coins" />
 
             <RadioButton
                 android:id="@+id/EURDefaultRadioButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="9dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="0"
+                android:background="@color/white"
                 android:button="@drawable/radio_icons"
                 android:layoutDirection="rtl"
                 android:onClick="onClickCheсked"
@@ -166,30 +207,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#BFBFBF"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/RUBTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/RUB" />
+                android:background="@color/white"
+                android:gravity="center|left"
+                android:text="RUB" />
 
             <Switch
                 android:id="@+id/RUBCoinsSwitch"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0"
+                android:background="@color/white"
                 android:checked="true"
                 android:text="@string/coins" />
 
             <RadioButton
                 android:id="@+id/RUBDefaultRadioButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="9dp"
+                android:layout_height="match_parent"
                 android:layout_weight="0"
+                android:background="@color/white"
                 android:button="@drawable/radio_icons"
                 android:layoutDirection="rtl"
                 android:onClick="onClickCheсked"
@@ -197,4 +243,145 @@
                 app:buttonTint="#C687D6" />
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#BFBFBF"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <TextView
+            android:id="@+id/languageTextView"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:background="#F1EEEE"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@string/language"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+        <LinearLayout
+            android:id="@+id/layoutRU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#BFBFBF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/langRUTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center|left"
+                android:onClick="onClickChangeDefaultLanguage"
+                android:text="Русский" />
+
+            <RadioButton
+                android:id="@+id/defaultRUradioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:button="@drawable/radio_icons"
+                android:checked="false"
+                android:gravity="center|right"
+                android:layoutDirection="rtl"
+                android:onClick="onClickChangeDefaultLanguage"
+                android:text="@string/def_value"
+                app:buttonTint="#C687D6" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutUA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#BFBFBF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/langUATextView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center|left"
+                android:onClick="onClickChangeDefaultLanguage"
+                android:text="Українська" />
+
+            <RadioButton
+                android:id="@+id/defaultUAradioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:button="@drawable/radio_icons"
+                android:gravity="center|right"
+                android:layoutDirection="rtl"
+                android:onClick="onClickChangeDefaultLanguage"
+                android:text="@string/def_value"
+                app:buttonTint="#C687D6" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutEN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#BFBFBF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/langENTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center|left"
+                android:onClick="onClickChangeDefaultLanguage"
+                android:text="English" />
+
+            <RadioButton
+                android:id="@+id/defaultENradioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:button="@drawable/radio_icons"
+                android:gravity="center|right"
+                android:layoutDirection="rtl"
+                android:onClick="onClickChangeDefaultLanguage"
+                android:text="@string/def_value"
+                app:buttonTint="#C687D6" />
+        </LinearLayout>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

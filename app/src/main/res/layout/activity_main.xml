@@ -16,8 +16,9 @@
 
         <TextView
             android:id="@+id/appNameTextView"
-            android:layout_width="155dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
             android:gravity="center"
             android:text="@string/title_main"
             android:textSize="20sp" />
@@ -73,13 +74,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="5dp"
-                android:text="@string/sum"
+                android:text="0.00"
                 android:textColor="@color/white"
                 android:textSize="50sp" />
 
             <Button
                 android:id="@+id/calculateButton"
-                android:layout_width="120dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:autoText="false"
@@ -118,7 +119,7 @@
                     android:gravity="center"
                     android:layoutDirection="rtl"
                     android:onClick="onClickCheck"
-                    android:text="@string/UAH"
+                    android:text="UAH"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:buttonTint="@color/white" />
@@ -134,7 +135,7 @@
                     android:gravity="center"
                     android:layoutDirection="rtl"
                     android:onClick="onClickCheck"
-                    android:text="@string/USD"
+                    android:text="USD"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:buttonTint="@color/white" />
@@ -150,7 +151,7 @@
                     android:gravity="center"
                     android:layoutDirection="rtl"
                     android:onClick="onClickCheck"
-                    android:text="@string/EUR"
+                    android:text="EUR"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:buttonTint="@color/white" />
@@ -165,7 +166,7 @@
                     android:gravity="center"
                     android:layoutDirection="rtl"
                     android:onClick="onClickCheck"
-                    android:text="@string/RUB"
+                    android:text="RUB"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:buttonTint="@color/white" />
@@ -297,7 +298,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:onClick="onClickClearAll"
-            android:text="@string/C"
+            android:text="C"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:backgroundTint="@color/white"

@@ -3,6 +3,7 @@ package com.dezrill;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LoadSettings();
         setContentView(R.layout.activity_main);
 
         blink=AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         currenciesGroup=findViewById(R.id.currenciesGroup);
         sumValueTextView=findViewById(R.id.sumValueTextView);
 
-        LoadSettings();
+        setRadioButtons();
         SetAdapter();
         setListViewOnClickListener();
         BackFromCalculate();
@@ -97,13 +99,17 @@ public class MainActivity extends AppCompatActivity {
             ois.close();
             fis.close();
 
-            if (settings.getDefaultValue()==R.id.UAHDefaultRadioButton) radioButtonUAH.setChecked(true);
-            else if (settings.getDefaultValue()==R.id.USDDefaultRadioButton) radioButtonUSD.setChecked(true);
-            else if (settings.getDefaultValue()==R.id.EURDefaultRadioButton) radioButtonEUR.setChecked(true);
-            else if (settings.getDefaultValue()==R.id.RUBDefaultRadioButton) radioButtonRUB.setChecked(true);
+            LoadLanguage(settings.getLanguage());
         }
         catch (IOException | ClassNotFoundException e) {
         }
+    }
+
+    private void setRadioButtons() {
+        if (settings.getDefaultValue()==R.id.UAHDefaultRadioButton) radioButtonUAH.setChecked(true);
+        else if (settings.getDefaultValue()==R.id.USDDefaultRadioButton) radioButtonUSD.setChecked(true);
+        else if (settings.getDefaultValue()==R.id.EURDefaultRadioButton) radioButtonEUR.setChecked(true);
+        else if (settings.getDefaultValue()==R.id.RUBDefaultRadioButton) radioButtonRUB.setChecked(true);
     }
 
     private void RemoveBelowOne()
@@ -227,6 +233,16 @@ public class MainActivity extends AppCompatActivity {
             if (str.length()>10) sumValueTextView.setTextSize(40);
             sumValueTextView.setText(str);
         }
+    }
+
+    private void LoadLanguage(String lang)
+    {
+        String languageToLoad=lang;
+        Locale locale=new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config=new Configuration();
+        config.locale=locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 
     public void onClickOpenHistory(View view) {

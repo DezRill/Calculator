@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Settings implements Serializable {
     private boolean UAHcoins, USDcoins, EURcoins, RUBcoins;
     private int default_value;
+    private String language;
 
     public void setEURcoins(boolean EURcoins) {
         this.EURcoins = EURcoins;
@@ -26,6 +27,10 @@ public class Settings implements Serializable {
         this.default_value = default_value;
     }
 
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     public boolean isEURcoins() {
         return EURcoins;
     }
@@ -44,5 +49,9 @@ public class Settings implements Serializable {
 
     public int getDefaultValue() {
         return default_value;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 }

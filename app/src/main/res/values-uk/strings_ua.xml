@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Калькулятор купюр</string>
+    <string name="title_main">Лічильник валют</string>
+    <string name="sum_static">Сума</string>
+    <string name="recalculate">Перерахувати</string>
+    <string name="denomination">Номінал</string>
+    <string name="count">Кількість</string>
+    <string name="Save">Зберегти</string>
+    <string name="settings">Налаштування</string>
+    <string name="currency">Валюта</string>
+    <string name="coins">Монети </string>
+    <string name="def_value">За замовчуванням</string>
+    <string name="about">Про додаток</string>
+    <string name="version">2.1.5</string>
+    <string name="update_date">Дата оновлення: 27.11.2020</string>
+    <string name="about_bottom">Автоматизація бізнесу</string>
+    <string name="txt_hyperlink">Complife.ua➔</string>
+    <string name="calculator">Калькулятор</string>
+    <string name="language">Мова</string>
+</resources>

@@ -99,7 +99,7 @@
                 android:layout_weight="1"
                 android:background="#C687D6"
                 android:onClick="onClickDeleteAll"
-                android:text="@string/C"
+                android:text="C"
                 android:textColor="@color/black"
                 android:textSize="34sp"
                 app:backgroundTint="#C687D6" />
