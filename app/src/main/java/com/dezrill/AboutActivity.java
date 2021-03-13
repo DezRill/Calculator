@@ -19,10 +19,10 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
     }
 
     public void onClickBackToMain(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         Intent intent=new Intent(AboutActivity.this, MainActivity.class);
         startActivity(intent);
@@ -30,6 +30,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void onClickHyperlink(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         Intent intentBrowser=new Intent(Intent.ACTION_VIEW, Uri.parse("https://complife.ua/"));
         startActivity(intentBrowser);

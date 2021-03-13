@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCheck(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         if (!sumValueTextView.getText().equals("0.00")) {
             currenciesGroup.check(activeRadioButton.getId());
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickOpenSettings(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         Intent intent=new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(intent);
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickOpenAbout(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         Intent intent=new Intent(MainActivity.this, AboutActivity.class);
         startActivity(intent);
@@ -343,6 +346,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickOpenHistory(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         Intent intent=new Intent(MainActivity.this, HistoryActivity.class);
         startActivity(intent);
@@ -350,10 +354,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickOpenCommenting(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
     }
 
     public void onClickClearAll(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
 
         AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
@@ -379,6 +385,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickSave(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
 
         if (!sumValueTextView.getText().toString().equals("0.00")) {
@@ -407,6 +414,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickRecalculate(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
     }
 }

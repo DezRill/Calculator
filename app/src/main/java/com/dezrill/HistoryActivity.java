@@ -31,13 +31,13 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         historyListView=findViewById(R.id.historyListView);
 
         LoadHistory();
     }
 
     public void onClickBackToMain(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         Intent intent=new Intent(HistoryActivity.this, MainActivity.class);
         startActivity(intent);

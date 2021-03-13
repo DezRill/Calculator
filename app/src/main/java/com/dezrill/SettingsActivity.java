@@ -41,7 +41,6 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         UAHDefaultRadioButton=findViewById(R.id.UAHDefaultRadioButton);
         USDDefaultRadioButton=findViewById(R.id.USDDefaultRadioButton);
         EURDefaultRadioButton=findViewById(R.id.EURDefaultRadioButton);
@@ -58,6 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onClickCheсked(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
 
         if(UAHDefaultRadioButton.isPressed()){
@@ -83,6 +83,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onClickBackToMain(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         setSettings();
         SaveSettings();
@@ -182,7 +183,6 @@ public class SettingsActivity extends AppCompatActivity {
             defaultUAradioButton.setChecked(false);
             defaultENradioButton.setChecked(true);
         }
-        //this.recreate();
         defaultRUradioButton.invalidate();
         defaultUAradioButton.invalidate();
         defaultENradioButton.invalidate();

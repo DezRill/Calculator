@@ -44,6 +44,7 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     public void onClickBackToMain(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         BackToMain();
     }
@@ -55,6 +56,7 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     public void onClickDeleteLast(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         String str=sumValueTextView.getText().toString();
         if (str.length()==1) str="0";
@@ -67,12 +69,14 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     public void onClickDeleteAll(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         sumValueTextView.setText("0");
         resultTextView.setText("= 0.00" + items.get(0).getCurrency());
     }
 
     public void onClickNumber(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         Button btn=findViewById(view.getId());
         String str=sumValueTextView.getText().toString();
@@ -88,11 +92,13 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     public void onClickPlus(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         sumValueTextView.setText(sumValueTextView.getText()+" + 0");
     }
 
     public void onClickOK(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         int count=0;
         String string=String.format(Locale.ROOT,"%.2f", result);
