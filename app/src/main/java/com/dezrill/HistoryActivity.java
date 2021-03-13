@@ -59,8 +59,6 @@ public class HistoryActivity extends AppCompatActivity {
             SetAdapter();
         }
         catch (IOException | ClassNotFoundException e) {
-            Toast toast=Toast.makeText(this, e.toString(), Toast.LENGTH_LONG);
-            toast.show();
         }
     }
 }
