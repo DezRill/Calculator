@@ -9,10 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Calculator">
-        <activity android:name="com.dezrill.CalculatorActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name="com.dezrill.AboutActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name="com.dezrill.HistoryActivity"></activity>
+        <activity
+            android:name="com.dezrill.CalculatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dezrill.AboutActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.dezrill.MainActivity"
             android:screenOrientation="portrait">
@@ -22,8 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dezrill.SettingsActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.dezrill.SettingsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

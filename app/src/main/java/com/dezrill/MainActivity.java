@@ -1,38 +1,41 @@
 package com.dezrill;
 
-import androidx.annotation.Dimension;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.dezrill.calculator.R;
-import com.dezrill.support.CustomListViewAdapter;
+import com.dezrill.support.CustomMainListViewAdapter;
+import com.dezrill.support.HistoryItem;
 import com.dezrill.support.ItemInList;
 import com.dezrill.support.Settings;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,9 +44,10 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup currenciesGroup;
     private String[] valuesArray;
     private ArrayList<ItemInList> items;
-    private CustomListViewAdapter adapter;
+    private CustomMainListViewAdapter adapter;
     private Settings settings=new Settings();
     private TextView sumValueTextView;
+    private ArrayList<HistoryItem> history_items;
     private Animation blink;
 
     @Override
@@ -182,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void SetAdapter(){
         CreateItemsArray();
-        adapter=new CustomListViewAdapter(this, items);
+        adapter=new CustomMainListViewAdapter(this, items);
         if (settings!=null && !settings.isRUBcoins()) RemoveBelowOne();
         valuesListView.setAdapter(adapter);
     }
@@ -222,6 +226,61 @@ public class MainActivity extends AppCompatActivity {
             item.setCount("0");
             item.setSum("0.00");
             items.add(item);
+        }
+    }
+
+    private void SaveHistory() {
+        HistoryItem item=new HistoryItem();
+        item.setDate(getCurrentDate());
+        item.setTime(getCurrentTime());
+        item.setCurrency(items.get(0).getCurrency());
+        item.setSum(sumValueTextView.getText().toString());
+        item.setValues(getAllValues());
+        history_items.add(item);
+
+        try {
+            FileOutputStream fos=getApplicationContext().openFileOutput("history.dat", Context.MODE_PRIVATE);
+            ObjectOutputStream oos=new ObjectOutputStream(fos);
+            oos.writeObject(history_items);
+            oos.close();
+            fos.close();
+        }
+        catch (IOException e) {
+        }
+    }
+
+    private String getCurrentDate() {
+        DateFormat dateFormat=new SimpleDateFormat("dd.MM.y");
+        Date date=new Date();
+        return dateFormat.format(date);
+    }
+
+    private String getCurrentTime() {
+        DateFormat dateFormat=new SimpleDateFormat("HH:mm:ss");
+        Date date=new Date();
+        return dateFormat.format(date);
+    }
+
+    private Map<String, String> getAllValues() {
+        Map<String, String> map=new HashMap<>();
+        for (ItemInList item:items) {
+            if (!item.getCount().equals("0")) {
+                map.put(item.getDenomination(), item.getCount());
+            }
+        }
+        return map;
+    }
+
+    private void LoadHistory() {
+        try {
+            FileInputStream fis=getApplicationContext().openFileInput("history.dat");
+            ObjectInputStream ois=new ObjectInputStream(fis);
+            history_items=(ArrayList<HistoryItem>) ois.readObject();
+            ois.close();
+            fis.close();
+        }
+        catch (IOException | ClassNotFoundException e) {
+            history_items=new ArrayList<>();
         }
     }
 
@@ -285,6 +344,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickOpenHistory(View view) {
         view.startAnimation(blink);
+        Intent intent=new Intent(MainActivity.this, HistoryActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void onClickOpenCommenting(View view) {
@@ -318,6 +380,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickSave(View view) {
         view.startAnimation(blink);
+
+        if (!sumValueTextView.getText().toString().equals("0.00")) {
+            LoadHistory();
+
+            AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(R.string.warning);
+            builder.setMessage(R.string.saveRecordAlert);
+            builder.setCancelable(false);
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SaveHistory();
+                }
+            });
+
+            AlertDialog alertDialog=builder.create();
+            alertDialog.show();
+        }
     }
 
     public void onClickRecalculate(View view) {

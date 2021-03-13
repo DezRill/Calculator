@@ -69,7 +69,7 @@ public class CalculatorActivity extends AppCompatActivity {
     public void onClickDeleteAll(View view) {
         view.startAnimation(blink);
         sumValueTextView.setText("0");
-        resultTextView.setText("= 0");
+        resultTextView.setText("= 0.00" + items.get(0).getCurrency());
     }
 
     public void onClickNumber(View view) {
@@ -77,10 +77,12 @@ public class CalculatorActivity extends AppCompatActivity {
         Button btn=findViewById(view.getId());
         String str=sumValueTextView.getText().toString();
         if (!TooMuch()){
-            if (str.substring(str.length()-1).equals("0") && str.length()>1) str=str.substring(0,str.length()-1);
+            if (str.length()>1)
+                if (str.substring(str.length()-2).equals(" 0")) str=str.substring(0,str.length()-1);
             if (str.length()==1 && str.equals("0")) str="";
             str+=btn.getText();
             sumValueTextView.setText(str);
+            result=0;
             SumAll();
         }
     }

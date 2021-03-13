@@ -14,12 +14,12 @@ import com.dezrill.calculator.R;
 
 import java.util.ArrayList;
 
-public class CustomListViewAdapter extends ArrayAdapter<ItemInList> {
+public class CustomMainListViewAdapter extends ArrayAdapter<ItemInList> {
     private Context context;
     private ArrayList<ItemInList> items;
 
-    public CustomListViewAdapter (Context context, ArrayList<ItemInList> items){
-        super(context, R.layout.row, R.id.denominationRowTextView, items);
+    public CustomMainListViewAdapter(Context context, ArrayList<ItemInList> items){
+        super(context, R.layout.main_row, R.id.denominationRowTextView, items);
         this.context=context;
         this.items=items;
     }
@@ -28,7 +28,7 @@ public class CustomListViewAdapter extends ArrayAdapter<ItemInList> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row=layoutInflater.inflate(R.layout.row,parent,false);
+        View row=layoutInflater.inflate(R.layout.main_row,parent,false);
         TextView currencyTextView=row.findViewById(R.id.currencyRowTextView);
         TextView denominationTextView=row.findViewById(R.id.denominationRowTextView);
         TextView countTextView=row.findViewById(R.id.countRowTextView);

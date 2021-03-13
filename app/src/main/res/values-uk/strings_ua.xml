@@ -23,4 +23,6 @@
     <string name="warning">Попередження</string>
     <string name="clearInputsAlert">Ви дійсно хочете очистити записи?</string>
     <string name="changeCurrencyAlert">Перемикання валюти призведе до втрати даних</string>
+    <string name="saveRecordAlert">Ви бажаєте закінчити заповнення і зберегти?</string>
+    <string name="historyHeader">Історія</string>
 </resources>

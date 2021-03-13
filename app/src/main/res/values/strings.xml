@@ -22,4 +22,6 @@
     <string name="warning">Warning</string>
     <string name="clearInputsAlert">Do you really want to clear the inputs?</string>
     <string name="changeCurrencyAlert">Switching currency will lead to data loss</string>
+    <string name="saveRecordAlert">Do you want to finish filling and save?</string>
+    <string name="historyHeader">History</string>
 </resources>

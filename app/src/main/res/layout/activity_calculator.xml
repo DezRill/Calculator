@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="= 0"
+                android:text="= 0.00"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -253,6 +253,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#ECECEC"
+                android:onClick="onClickNumber"
                 android:text="0"
                 android:textSize="36sp"
                 app:backgroundTint="#ECECEC" />
