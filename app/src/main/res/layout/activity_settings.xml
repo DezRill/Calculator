@@ -114,7 +114,6 @@
                 android:layout_weight="0"
                 android:background="@color/white"
                 android:button="@drawable/radio_icons"
-                android:checked="true"
                 android:layoutDirection="rtl"
                 android:onClick="onClickCheсked"
                 android:text="@string/def_value"

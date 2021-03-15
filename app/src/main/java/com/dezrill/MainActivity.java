@@ -1,5 +1,6 @@
 package com.dezrill;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,6 +25,8 @@ import com.dezrill.support.CustomMainListViewAdapter;
 import com.dezrill.support.HistoryItem;
 import com.dezrill.support.ItemInList;
 import com.dezrill.support.Settings;
+
+import org.w3c.dom.Text;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView sumValueTextView;
     private ArrayList<HistoryItem> history_items;
     private Animation blink;
+    private static final int SECOND_ACTIVITY_REQUEST_CODE=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +72,55 @@ public class MainActivity extends AppCompatActivity {
 
         setRadioButtons();
         SetAdapter();
+        RenderListView();
         setListViewOnClickListener();
-        BackFromCalculate();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==SECOND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode==RESULT_OK) {
+                if (data.getSerializableExtra("Settings")!=null) {
+                    settings=(Settings) data.getSerializableExtra("Settings");
+                    LoadLanguage(settings.getLanguage());
+                    UpdateLanguage();
+                    adapter.clear();
+                    adapter.addAll(items);
+                    RemoveAfterBackToActivity();
+                    adapter.notifyDataSetChanged();
+                }
+                BackFromCalculate(data);
+            }
+        }
+    }
+
+    private void RemoveAfterBackToActivity() {
+        switch (activeRadioButton.getText().toString()) {
+            case "UAH": if (!settings.isUAHcoins()) RemoveBelowOne(); break;
+            case "USD": if (!settings.isUSDcoins()) RemoveBelowOne(); break;
+            case "EUR": if (!settings.isEURcoins()) RemoveBelowOne(); break;
+            case "RUB": if (!settings.isRUBcoins()) RemoveBelowOne(); break;
+        }
+    }
+
+    private void UpdateLanguage() {
+        TextView appNameTextView=findViewById(R.id.appNameTextView);
+        TextView sumTextView=findViewById(R.id.sumTextView);
+        TextView denominationTextView=findViewById(R.id.denominationTextView);
+        TextView countTextView=findViewById(R.id.countTextView);
+        TextView sumOnRightTextView=findViewById(R.id.sumOnRightTextView);
+        Button calculateButton=findViewById(R.id.calculateButton);
+        Button saveButton=findViewById(R.id.saveButton);
+
+        appNameTextView.setText(R.string.title_main);
+        sumTextView.setText(R.string.sum_static);
+        denominationTextView.setText(R.string.denomination);
+        countTextView.setText(R.string.count);
+        sumOnRightTextView.setText(R.string.sum_static);
+        calculateButton.setText(R.string.sum_static);
+        saveButton.setText(R.string.Save);
+
     }
 
     public void onClickCheck(View view) {
@@ -85,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         Intent intent=new Intent(MainActivity.this, SettingsActivity.class);
-        startActivity(intent);
-        finish();
+        intent.putExtra("Settings", settings);
+        startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
     }
 
     public void onClickOpenAbout(View view) {
@@ -202,8 +254,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent=new Intent(MainActivity.this, CalculatorActivity.class);
                 intent.putExtra("Items", items);
                 intent.putExtra("Position", position);
-                startActivity(intent);
-                finish();
+                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
             }
         });
     }
@@ -287,13 +338,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void BackFromCalculate() {
-        Intent intent=getIntent();
-        if (intent.getSerializableExtra("Items")!=null) {
-            items=(ArrayList<ItemInList>) intent.getSerializableExtra("Items");
+    private void BackFromCalculate(Intent data) {
+        if (data.getSerializableExtra("Items")!=null) {
+            items=(ArrayList<ItemInList>) data.getSerializableExtra("Items");
             adapter.clear();
             adapter.addAll(items);
-            if (settings!=null && !settings.isRUBcoins()) RemoveBelowOne();
+            RemoveAfterBackToActivity();
             adapter.notifyDataSetChanged();
 
             double result=0;
@@ -350,7 +400,6 @@ public class MainActivity extends AppCompatActivity {
         view.startAnimation(blink);
         Intent intent=new Intent(MainActivity.this, HistoryActivity.class);
         startActivity(intent);
-        finish();
     }
 
     public void onClickOpenCommenting(View view) {
@@ -405,6 +454,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     SaveHistory();
+                    RenderListView();
                 }
             });
 

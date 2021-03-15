@@ -30,7 +30,7 @@ import java.io.ObjectOutputStream;
 import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
-    private Settings settings=new Settings();
+    private Settings settings;
     private RadioButton UAHDefaultRadioButton, USDDefaultRadioButton, EURDefaultRadioButton, RUBDefaultRadioButton, defaultRUradioButton, defaultUAradioButton, defaultENradioButton;
     private Switch UAHCoinsSwitch, USDCoinsSwitch, EURCoinsSwitch, RUBCoinsSwitch;
     private Animation blink;
@@ -53,7 +53,9 @@ public class SettingsActivity extends AppCompatActivity {
         EURCoinsSwitch=findViewById(R.id.EURCoinsSwitch);
         RUBCoinsSwitch=findViewById(R.id.RUBCoinsSwitch);
 
-        LoadSettings();
+        Intent intent=getIntent();
+        settings=(Settings) intent.getSerializableExtra("Settings");
+        getSettings();
     }
 
     public void onClickCheсked(View view) {
@@ -115,39 +117,31 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void BackToMainMenu() {
-        Intent intent=new Intent(SettingsActivity.this, MainActivity.class);
-        startActivity(intent);
+        Intent intent=new Intent();
+        intent.putExtra("Settings", settings);
+        setResult(RESULT_OK,intent);
         finish();
     }
 
-    private void LoadSettings(){
+    private void getSettings() {
         try {
-            FileInputStream fis=getApplicationContext().openFileInput("settings.dat");
-            ObjectInputStream ois=new ObjectInputStream(fis);
-            settings=(Settings) ois.readObject();
-            ois.close();
-            fis.close();
-
-            getSettings();
+            UAHCoinsSwitch.setChecked(settings.isUAHcoins());
+            USDCoinsSwitch.setChecked(settings.isUSDcoins());
+            EURCoinsSwitch.setChecked(settings.isEURcoins());
+            RUBCoinsSwitch.setChecked(settings.isRUBcoins());
+            UAHDefaultRadioButton.setChecked(false);
+            if (UAHDefaultRadioButton.getId()==settings.getDefaultValue()) UAHDefaultRadioButton.setChecked(true);
+            else if (USDDefaultRadioButton.getId()==settings.getDefaultValue()) USDDefaultRadioButton.setChecked(true);
+            else if (EURDefaultRadioButton.getId()==settings.getDefaultValue()) EURDefaultRadioButton.setChecked(true);
+            else if (RUBDefaultRadioButton.getId()==settings.getDefaultValue()) RUBDefaultRadioButton.setChecked(true);
+            if (settings.getLanguage().equals("ru")) defaultRUradioButton.setChecked(true);
+            else if (settings.getLanguage().equals("uk")) defaultUAradioButton.setChecked(true);
+            else if (settings.getLanguage().equals("en")) defaultENradioButton.setChecked(true);
         }
-        catch (IOException | ClassNotFoundException e) {
+        catch (Exception e) {
+            UAHDefaultRadioButton.setChecked(true);
             setCheckedBySystemLanguage();
         }
-    }
-
-    private void getSettings() {
-        UAHCoinsSwitch.setChecked(settings.isUAHcoins());
-        USDCoinsSwitch.setChecked(settings.isUSDcoins());
-        EURCoinsSwitch.setChecked(settings.isEURcoins());
-        RUBCoinsSwitch.setChecked(settings.isRUBcoins());
-        UAHDefaultRadioButton.setChecked(false);
-        if (UAHDefaultRadioButton.getId()==settings.getDefaultValue()) UAHDefaultRadioButton.setChecked(true);
-        else if (USDDefaultRadioButton.getId()==settings.getDefaultValue()) USDDefaultRadioButton.setChecked(true);
-        else if (EURDefaultRadioButton.getId()==settings.getDefaultValue()) EURDefaultRadioButton.setChecked(true);
-        else if (RUBDefaultRadioButton.getId()==settings.getDefaultValue()) RUBDefaultRadioButton.setChecked(true);
-        if (settings.getLanguage().equals("ru")) defaultRUradioButton.setChecked(true);
-        else if (settings.getLanguage().equals("uk")) defaultUAradioButton.setChecked(true);
-        else if (settings.getLanguage().equals("en")) defaultENradioButton.setChecked(true);
     }
 
     private void SaveSettings()

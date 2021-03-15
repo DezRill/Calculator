@@ -46,12 +46,12 @@ public class CalculatorActivity extends AppCompatActivity {
     public void onClickBackToMain(View view) {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
-        BackToMain();
+        finish();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode==KeyEvent.KEYCODE_BACK) BackToMain();
+        if (keyCode==KeyEvent.KEYCODE_BACK) finish();
         return super.onKeyDown(keyCode, event);
     }
 
@@ -107,15 +107,9 @@ public class CalculatorActivity extends AppCompatActivity {
         }
         items.get(position).setCount(String.valueOf(count));
         items.get(position).setSum(string);
-        Intent intent=new Intent(CalculatorActivity.this, MainActivity.class);
+        Intent intent=new Intent();
         intent.putExtra("Items", items);
-        startActivity(intent);
-        finish();
-    }
-
-    private void BackToMain() {
-        Intent intent=new Intent(CalculatorActivity.this, MainActivity.class);
-        startActivity(intent);
+        setResult(RESULT_OK,intent);
         finish();
     }
 

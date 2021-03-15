@@ -39,8 +39,6 @@ public class HistoryActivity extends AppCompatActivity {
     public void onClickBackToMain(View view) {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
-        Intent intent=new Intent(HistoryActivity.this, MainActivity.class);
-        startActivity(intent);
         finish();
     }
 
@@ -63,11 +61,9 @@ public class HistoryActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+   @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode==KeyEvent.KEYCODE_BACK) {
-            Intent intent=new Intent(HistoryActivity.this, MainActivity.class);
-            startActivity(intent);
             finish();
         }
         return super.onKeyDown(keyCode, event);
