@@ -41,6 +41,7 @@ public class RecalculateActivity extends AppCompatActivity {
         sumValueTextView=findViewById(R.id.sumValueTextView);
 
         Intent intent=getIntent();
+        if (intent.getDoubleExtra("OperationValue",0)!=0) sumValueTextView.setText(String.valueOf(intent.getDoubleExtra("OperationValue",0)));
 
         currencyTextView.setText(intent.getStringExtra("Currency")+ "×");
         FillSpinner(intent.getStringExtra("Currency"));
@@ -72,7 +73,7 @@ public class RecalculateActivity extends AppCompatActivity {
             if (str.length()>1) {
                 if (str.substring(str.length()-1).equals(".") && view.getId()==R.id.button_point) str=str.substring(0,str.length()-1);
             }
-            if (str.length()==1 && str.equals("0")) str="";
+            if (str.length()==1 && str.equals("0") && view.getId()!=R.id.button_point) str="";
             str+=btn.getText();
             String[] points=str.split("\\.");
             if (points.length>=2 && str.substring(str.length()-1).equals(".")) str=str.substring(0,str.length()-1);
@@ -88,6 +89,8 @@ public class RecalculateActivity extends AppCompatActivity {
             result=Double.parseDouble(sumValueTextView.getText().toString());
             Intent intent=new Intent();
             intent.putExtra("Result", result);
+            intent.putExtra("Operation", multiplication);
+            intent.putExtra("Currency", currencySpinner.getSelectedItem().toString());
             setResult(RESULT_OK,intent);
             finish();
         }
