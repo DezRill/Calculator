@@ -42,6 +42,14 @@ public class HistoryActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     private void SetAdapter() {
         adapter=new CustomHistoryListViewAdapter(this, items);
         historyListView.setAdapter(adapter);
@@ -59,13 +67,5 @@ public class HistoryActivity extends AppCompatActivity {
         }
         catch (IOException | ClassNotFoundException e) {
         }
-    }
-
-   @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode==KeyEvent.KEYCODE_BACK) {
-            finish();
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

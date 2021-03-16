@@ -92,6 +92,30 @@ public class SettingsActivity extends AppCompatActivity {
         BackToMainMenu();
     }
 
+    public void onClickChangeDefaultLanguage(View view) {
+        if (view==findViewById(R.id.langRUTextView) || view==defaultRUradioButton) {
+            LoadLanguage("ru");
+            defaultRUradioButton.setChecked(true);
+            defaultUAradioButton.setChecked(false);
+            defaultENradioButton.setChecked(false);
+        }
+        else if (view==findViewById(R.id.langUATextView) || view==defaultUAradioButton) {
+            LoadLanguage("uk");
+            defaultRUradioButton.setChecked(false);
+            defaultUAradioButton.setChecked(true);
+            defaultENradioButton.setChecked(false);
+        }
+        else if (view==findViewById(R.id.langENTextView) || view==defaultENradioButton) {
+            LoadLanguage("en");
+            defaultRUradioButton.setChecked(false);
+            defaultUAradioButton.setChecked(false);
+            defaultENradioButton.setChecked(true);
+        }
+        defaultRUradioButton.invalidate();
+        defaultUAradioButton.invalidate();
+        defaultENradioButton.invalidate();
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode==KeyEvent.KEYCODE_BACK) {
@@ -156,30 +180,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
         catch (IOException e) {
         }
-    }
-
-    public void onClickChangeDefaultLanguage(View view) {
-        if (view==findViewById(R.id.langRUTextView) || view==defaultRUradioButton) {
-            LoadLanguage("ru");
-            defaultRUradioButton.setChecked(true);
-            defaultUAradioButton.setChecked(false);
-            defaultENradioButton.setChecked(false);
-        }
-        else if (view==findViewById(R.id.langUATextView) || view==defaultUAradioButton) {
-            LoadLanguage("uk");
-            defaultRUradioButton.setChecked(false);
-            defaultUAradioButton.setChecked(true);
-            defaultENradioButton.setChecked(false);
-        }
-        else if (view==findViewById(R.id.langENTextView) || view==defaultENradioButton) {
-            LoadLanguage("en");
-            defaultRUradioButton.setChecked(false);
-            defaultUAradioButton.setChecked(false);
-            defaultENradioButton.setChecked(true);
-        }
-        defaultRUradioButton.invalidate();
-        defaultUAradioButton.invalidate();
-        defaultENradioButton.invalidate();
     }
 
     private void LoadLanguage(String lang)

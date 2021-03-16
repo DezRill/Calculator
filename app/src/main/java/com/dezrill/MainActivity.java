@@ -76,6 +76,113 @@ public class MainActivity extends AppCompatActivity {
         setListViewOnClickListener();
     }
 
+    public void onClickCheck(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+        view.startAnimation(blink);
+        if (!sumValueTextView.getText().equals("0.00")) {
+            currenciesGroup.check(activeRadioButton.getId());
+            NotEmpty(findViewById(view.getId()));
+        }
+        else RenderListView();
+    }
+
+    public void onClickOpenSettings(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+        view.startAnimation(blink);
+        Intent intent=new Intent(MainActivity.this, SettingsActivity.class);
+        intent.putExtra("Settings", settings);
+        startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+    }
+
+    public void onClickOpenAbout(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+        view.startAnimation(blink);
+        Intent intent=new Intent(MainActivity.this, AboutActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickOpenHistory(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+        view.startAnimation(blink);
+        Intent intent=new Intent(MainActivity.this, HistoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickOpenCommenting(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+        view.startAnimation(blink);
+    }
+
+    public void onClickClearAll(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+        view.startAnimation(blink);
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(R.string.warning);
+        builder.setMessage(R.string.clearInputsAlert);
+        builder.setCancelable(false);
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                items.clear();
+                RenderListView();
+            }
+        });
+
+        AlertDialog alertDialog=builder.create();
+        alertDialog.show();
+    }
+
+    public void onClickSave(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+        view.startAnimation(blink);
+
+        if (!sumValueTextView.getText().toString().equals("0.00")) {
+            LoadHistory();
+
+            AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(R.string.warning);
+            builder.setMessage(R.string.saveRecordAlert);
+            builder.setCancelable(false);
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SaveHistory();
+                    RenderListView();
+                }
+            });
+
+            AlertDialog alertDialog=builder.create();
+            alertDialog.show();
+        }
+    }
+
+    public void onClickRecalculate(View view) {
+        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+        view.startAnimation(blink);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK) {
+            finish();
+            System.exit(0);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -121,40 +228,6 @@ public class MainActivity extends AppCompatActivity {
         calculateButton.setText(R.string.sum_static);
         saveButton.setText(R.string.Save);
 
-    }
-
-    public void onClickCheck(View view) {
-        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
-        view.startAnimation(blink);
-        if (!sumValueTextView.getText().equals("0.00")) {
-            currenciesGroup.check(activeRadioButton.getId());
-            NotEmpty(findViewById(view.getId()));
-        }
-        else RenderListView();
-    }
-
-    public void onClickOpenSettings(View view) {
-        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
-        view.startAnimation(blink);
-        Intent intent=new Intent(MainActivity.this, SettingsActivity.class);
-        intent.putExtra("Settings", settings);
-        startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
-    }
-
-    public void onClickOpenAbout(View view) {
-        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
-        view.startAnimation(blink);
-        Intent intent=new Intent(MainActivity.this, AboutActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode==KeyEvent.KEYCODE_BACK) {
-            finish();
-            System.exit(0);
-        }
-        return super.onKeyDown(keyCode, event);
     }
 
     private void LoadSettings()
@@ -393,78 +466,5 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
-    }
-
-    public void onClickOpenHistory(View view) {
-        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
-        view.startAnimation(blink);
-        Intent intent=new Intent(MainActivity.this, HistoryActivity.class);
-        startActivity(intent);
-    }
-
-    public void onClickOpenCommenting(View view) {
-        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
-        view.startAnimation(blink);
-    }
-
-    public void onClickClearAll(View view) {
-        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
-        view.startAnimation(blink);
-
-        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle(R.string.warning);
-        builder.setMessage(R.string.clearInputsAlert);
-        builder.setCancelable(false);
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                items.clear();
-                RenderListView();
-            }
-        });
-
-        AlertDialog alertDialog=builder.create();
-        alertDialog.show();
-    }
-
-    public void onClickSave(View view) {
-        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
-        view.startAnimation(blink);
-
-        if (!sumValueTextView.getText().toString().equals("0.00")) {
-            LoadHistory();
-
-            AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle(R.string.warning);
-            builder.setMessage(R.string.saveRecordAlert);
-            builder.setCancelable(false);
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    SaveHistory();
-                    RenderListView();
-                }
-            });
-
-            AlertDialog alertDialog=builder.create();
-            alertDialog.show();
-        }
-    }
-
-    public void onClickRecalculate(View view) {
-        blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
-        view.startAnimation(blink);
     }
 }

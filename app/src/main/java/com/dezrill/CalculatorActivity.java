@@ -49,12 +49,6 @@ public class CalculatorActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode==KeyEvent.KEYCODE_BACK) finish();
-        return super.onKeyDown(keyCode, event);
-    }
-
     public void onClickDeleteLast(View view) {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
@@ -111,6 +105,12 @@ public class CalculatorActivity extends AppCompatActivity {
         intent.putExtra("Items", items);
         setResult(RESULT_OK,intent);
         finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK) finish();
+        return super.onKeyDown(keyCode, event);
     }
 
     private void SumAll() {
