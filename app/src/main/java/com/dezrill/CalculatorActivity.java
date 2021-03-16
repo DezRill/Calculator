@@ -40,7 +40,8 @@ public class CalculatorActivity extends AppCompatActivity {
         position=intent.getIntExtra("Position", 0);
 
         chosenValueTextView.setText(items.get(position).getDenomination()+" "+items.get(position).getCurrency());
-        resultTextView.setText(resultTextView.getText()+" "+items.get(position).getCurrency());
+        sumValueTextView.setText(items.get(position).getCount());
+        resultTextView.setText(items.get(position).getSum()+" "+items.get(position).getCurrency());
     }
 
     public void onClickBackToMain(View view) {
@@ -94,13 +95,15 @@ public class CalculatorActivity extends AppCompatActivity {
     public void onClickOK(View view) {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
-        int count=0;
-        String string=String.format(Locale.ROOT,"%.2f", result);
-        for (String str:counts) {
-            count+=Integer.parseInt(str);
+        if (counts!=null) {
+            int count=0;
+            String string=String.format(Locale.ROOT,"%.2f", result);
+            for (String str:counts) {
+                count+=Integer.parseInt(str);
+            }
+            items.get(position).setCount(String.valueOf(count));
+            items.get(position).setSum(string);
         }
-        items.get(position).setCount(String.valueOf(count));
-        items.get(position).setSum(string);
         Intent intent=new Intent();
         intent.putExtra("Items", items);
         setResult(RESULT_OK,intent);

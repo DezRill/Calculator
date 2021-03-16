@@ -174,6 +174,19 @@ public class MainActivity extends AppCompatActivity {
         view.startAnimation(blink);
     }
 
+    private void setListViewOnClickListener(){
+        valuesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.startAnimation(blink);
+                Intent intent=new Intent(MainActivity.this, CalculatorActivity.class);
+                intent.putExtra("Items", items);
+                intent.putExtra("Position", position);
+                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+            }
+        });
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode==KeyEvent.KEYCODE_BACK) {
@@ -317,19 +330,6 @@ public class MainActivity extends AppCompatActivity {
         adapter=new CustomMainListViewAdapter(this, items);
         if (settings!=null && !settings.isRUBcoins()) RemoveBelowOne();
         valuesListView.setAdapter(adapter);
-    }
-
-    private void setListViewOnClickListener(){
-        valuesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                view.startAnimation(blink);
-                Intent intent=new Intent(MainActivity.this, CalculatorActivity.class);
-                intent.putExtra("Items", items);
-                intent.putExtra("Position", position);
-                startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
-            }
-        });
     }
 
     private void CreateItemsArray() {

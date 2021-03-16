@@ -22,6 +22,7 @@
         <LinearLayout
             android:layout_width="329dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
             android:orientation="vertical">
 
             <TextView
@@ -30,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-light"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -46,6 +48,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="center"
                     android:text="X"
                     android:textColor="@color/white"
@@ -57,6 +60,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="center_vertical"
                     android:text="0"
                     android:textColor="@color/white"
@@ -69,6 +73,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="sans-serif-light"
                 android:text="= 0.00"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -90,7 +96,7 @@
                 android:background="#C687D6"
                 android:onClick="onClickDeleteLast"
                 android:scaleType="fitCenter"
-                android:src="@drawable/back_icon" />
+                android:src="@drawable/back_icon_purple" />
 
             <Button
                 android:id="@+id/deleteAllButton"
@@ -100,7 +106,7 @@
                 android:background="#C687D6"
                 android:onClick="onClickDeleteAll"
                 android:text="C"
-                android:textColor="@color/black"
+                android:textColor="#B36DCB"
                 android:textSize="34sp"
                 app:backgroundTint="#C687D6" />
         </LinearLayout>
@@ -161,11 +167,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#DFDFDF"
+                android:background="#ECECEC"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickNumber"
                 android:text="7"
                 android:textSize="36sp"
-                app:backgroundTint="#DFDFDF" />
+                app:backgroundTint="#ECECEC" />
 
             <Button
                 android:id="@+id/button_4"
@@ -173,11 +180,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#DFDFDF"
+                android:background="#ECECEC"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickNumber"
                 android:text="4"
                 android:textSize="36sp"
-                app:backgroundTint="#DFDFDF" />
+                app:backgroundTint="#ECECEC" />
 
             <Button
                 android:id="@+id/button_1"
@@ -185,11 +193,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#DFDFDF"
+                android:background="#ECECEC"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickNumber"
                 android:text="1"
                 android:textSize="36sp"
-                app:backgroundTint="#DFDFDF" />
+                app:backgroundTint="#ECECEC" />
 
             <Button
                 android:id="@+id/button_plus"
@@ -197,11 +206,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#DFDFDF"
+                android:background="#ECECEC"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickPlus"
                 android:text="+"
                 android:textSize="36sp"
-                app:backgroundTint="#DFDFDF" />
+                app:backgroundTint="#ECECEC" />
         </LinearLayout>
 
         <LinearLayout
@@ -216,11 +226,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#ECECEC"
+                android:background="#F4F4F4"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickNumber"
                 android:text="8"
                 android:textSize="36sp"
-                app:backgroundTint="#ECECEC" />
+                app:backgroundTint="#F4F4F4" />
 
             <Button
                 android:id="@+id/button_5"
@@ -228,11 +239,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#ECECEC"
+                android:background="#F4F4F4"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickNumber"
                 android:text="5"
                 android:textSize="36sp"
-                app:backgroundTint="#ECECEC" />
+                app:backgroundTint="#F4F4F4" />
 
             <Button
                 android:id="@+id/button_2"
@@ -240,11 +252,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#ECECEC"
+                android:background="#F4F4F4"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickNumber"
                 android:text="2"
                 android:textSize="36sp"
-                app:backgroundTint="#ECECEC" />
+                app:backgroundTint="#F4F4F4" />
 
             <Button
                 android:id="@+id/button_0"
@@ -252,11 +265,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#ECECEC"
+                android:background="#F4F4F4"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickNumber"
                 android:text="0"
                 android:textSize="36sp"
-                app:backgroundTint="#ECECEC" />
+                app:backgroundTint="#F4F4F4" />
         </LinearLayout>
 
         <LinearLayout
@@ -272,6 +286,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#FFFFFF"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickNumber"
                 android:text="9"
                 android:textSize="36sp"
@@ -284,6 +299,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#FFFFFF"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickNumber"
                 android:text="6"
                 android:textSize="36sp"
@@ -296,6 +312,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#FFFFFF"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickNumber"
                 android:text="3"
                 android:textSize="36sp"
@@ -308,8 +325,10 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#C687D6"
+                android:fontFamily="sans-serif-light"
                 android:onClick="onClickOK"
                 android:text="OK"
+                android:textColor="#FFFFFF"
                 android:textSize="36sp"
                 app:backgroundTint="#C687D6" />
         </LinearLayout>
