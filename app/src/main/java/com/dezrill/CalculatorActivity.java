@@ -18,11 +18,11 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class CalculatorActivity extends AppCompatActivity {
-    TextView chosenValueTextView, sumValueTextView, resultTextView;
+    private TextView chosenValueTextView, sumValueTextView, resultTextView;
     private Animation blink;
-    ArrayList<ItemInList> items;
+    private ArrayList<ItemInList> items;
     int position;
-    String counts[];
+    private String counts[];
     double result=0;
 
     @Override

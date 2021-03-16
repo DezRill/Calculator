@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         LoadSettings();
         setContentView(R.layout.activity_main);
 
-        blink=AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         valuesListView=findViewById(R.id.valuesListView);
         radioButtonUAH=findViewById(R.id.UAHRadioButton);
         radioButtonUSD=findViewById(R.id.USDRadioButton);
@@ -172,12 +171,16 @@ public class MainActivity extends AppCompatActivity {
     public void onClickRecalculate(View view) {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
+        Intent intent=new Intent(MainActivity.this, RecalculateActivity.class);
+        intent.putExtra("Currency", activeRadioButton.getText().toString());
+        startActivityForResult(intent,SECOND_ACTIVITY_REQUEST_CODE);
     }
 
     private void setListViewOnClickListener(){
         valuesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
                 view.startAnimation(blink);
                 Intent intent=new Intent(MainActivity.this, CalculatorActivity.class);
                 intent.putExtra("Items", items);

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Calculator">
-        <activity android:name="com.dezrill.HistoryActivity"></activity>
+        <activity android:name="com.dezrill.RecalculateActivity"></activity>
+        <activity android:name="com.dezrill.HistoryActivity" />
         <activity
             android:name="com.dezrill.CalculatorActivity"
             android:screenOrientation="portrait" />
