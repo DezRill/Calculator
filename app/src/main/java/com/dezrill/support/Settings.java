@@ -6,6 +6,7 @@ public class Settings implements Serializable {
     private boolean UAHcoins, USDcoins, EURcoins, RUBcoins;
     private int default_value;
     private String language;
+    private Operation[] operations=new Operation[4];
 
     public void setEURcoins(boolean EURcoins) {
         this.EURcoins = EURcoins;
@@ -31,6 +32,10 @@ public class Settings implements Serializable {
         this.language = language;
     }
 
+    public void setOperations(Operation[] operations) {
+        this.operations = operations;
+    }
+
     public boolean isEURcoins() {
         return EURcoins;
     }
@@ -53,5 +58,9 @@ public class Settings implements Serializable {
 
     public String getLanguage() {
         return language;
+    }
+
+    public Operation[] getOperations() {
+        return operations;
     }
 }

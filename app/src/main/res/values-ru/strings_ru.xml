@@ -25,4 +25,5 @@
     <string name="changeCurrencyAlert">Переключение валюты приведёт к потери данных</string>
     <string name="saveRecordAlert">Вы желаете закончить заполнение и сохранить?</string>
     <string name="historyHeader">История</string>
+    <string name="rememberRate">Запомнить курс</string>
 </resources>

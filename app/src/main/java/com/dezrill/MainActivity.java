@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dezrill.calculator.R;
 import com.dezrill.support.CustomMainListViewAdapter;
@@ -55,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView sumValueTextView;
     private ArrayList<HistoryItem> history_items;
     private Animation blink;
-    //private boolean operation;
-    //private double operationValue;
-    //private String currencyOperation;
     private Operation[] operations;
     private Button recalculateButton;
     private static final int SECOND_ACTIVITY_REQUEST_CODE=0;
@@ -65,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        operations=new Operation[4];
         LoadSettings();
         setContentView(R.layout.activity_main);
 
@@ -76,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
         currenciesGroup=findViewById(R.id.currenciesGroup);
         sumValueTextView=findViewById(R.id.sumValueTextView);
         recalculateButton=findViewById(R.id.recalculateButton);
-        operations=new Operation[4];
 
         setRadioButtons();
         SetAdapter();
         RenderListView();
         setListViewOnClickListener();
+        LoadOperations(settings.getOperations());
     }
 
     public void onClickCheck(View view) {
@@ -192,7 +191,10 @@ public class MainActivity extends AppCompatActivity {
         view.startAnimation(blink);
         Intent intent=new Intent(MainActivity.this, RecalculateActivity.class);
         intent.putExtra("Currency", activeRadioButton.getText().toString());
-        if (operations[getIndexForArray()]!=null) intent.putExtra("OperationValue", operations[getIndexForArray()].getOperationValue());
+        if (operations[getIndexForArray()]!=null) {
+            intent.putExtra("OperationValue", operations[getIndexForArray()].getOperationValue());
+            intent.putExtra("Remember",operations[getIndexForArray()].isRememberOperation());
+        }
         startActivityForResult(intent,SECOND_ACTIVITY_REQUEST_CODE);
     }
 
@@ -224,15 +226,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode==RESULT_OK) {
-                if (data.getSerializableExtra("Settings")!=null) {
-                    settings=(Settings) data.getSerializableExtra("Settings");
-                    LoadLanguage(settings.getLanguage());
-                    UpdateLanguage();
-                    adapter.clear();
-                    adapter.addAll(items);
-                    RemoveAfterBackToActivity();
-                    adapter.notifyDataSetChanged();
-                }
+                BackFromSettings(data);
                 BackFromRecalculate(data);
                 BackFromCalculate(data);
             }
@@ -265,6 +259,20 @@ public class MainActivity extends AppCompatActivity {
         calculateButton.setText(R.string.sum_static);
         saveButton.setText(R.string.Save);
 
+    }
+
+    private void SaveSettings()
+    {
+        try {
+            settings.setOperations(operations);
+            FileOutputStream fos=getApplicationContext().openFileOutput("settings.dat", Context.MODE_PRIVATE);
+            ObjectOutputStream oos=new ObjectOutputStream(fos);
+            oos.writeObject(settings);
+            oos.close();
+            fos.close();
+        }
+        catch (IOException e) {
+        }
     }
 
     private void LoadSettings()
@@ -400,6 +408,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void LoadHistory() {
+        try {
+            FileInputStream fis=getApplicationContext().openFileInput("history.dat");
+            ObjectInputStream ois=new ObjectInputStream(fis);
+            history_items=(ArrayList<HistoryItem>) ois.readObject();
+            ois.close();
+            fis.close();
+        }
+        catch (IOException | ClassNotFoundException e) {
+            history_items=new ArrayList<>();
+        }
+    }
+
     private String getCurrentDate() {
         DateFormat dateFormat=new SimpleDateFormat("dd.MM.y");
         Date date=new Date();
@@ -420,19 +441,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return map;
-    }
-
-    private void LoadHistory() {
-        try {
-            FileInputStream fis=getApplicationContext().openFileInput("history.dat");
-            ObjectInputStream ois=new ObjectInputStream(fis);
-            history_items=(ArrayList<HistoryItem>) ois.readObject();
-            ois.close();
-            fis.close();
-        }
-        catch (IOException | ClassNotFoundException e) {
-            history_items=new ArrayList<>();
-        }
     }
 
     private void BackFromCalculate(Intent data) {
@@ -456,7 +464,6 @@ public class MainActivity extends AppCompatActivity {
             }
             sumValueTextView.setText(str);
         }
-
         RenderRecalculateButton();
     }
 
@@ -466,7 +473,22 @@ public class MainActivity extends AppCompatActivity {
             tmp.setOperationValue(data.getDoubleExtra("Result",0));
             tmp.setOperation(data.getBooleanExtra("Operation", true));
             tmp.setCurrencyOperation(data.getStringExtra("Currency"));
+            tmp.setRememberOperation(data.getBooleanExtra("Remember", false));
             operations[getIndexForArray()]=tmp;
+            SaveSettings();
+        }
+    }
+
+    private void BackFromSettings(Intent data) {
+        if (data.getSerializableExtra("Settings")!=null) {
+            settings=(Settings) data.getSerializableExtra("Settings");
+            SaveSettings();
+            LoadLanguage(settings.getLanguage());
+            UpdateLanguage();
+            adapter.clear();
+            adapter.addAll(items);
+            RemoveAfterBackToActivity();
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -536,5 +558,13 @@ public class MainActivity extends AppCompatActivity {
             recalculateButton.setLayoutParams(lp);
             recalculateButton.setText(R.string.recalculate);
         }
+    }
+
+    private void LoadOperations (Operation[] array) {
+        for (int i=0;i<array.length;i++) {
+            if (array[i]!=null)
+                if (array[i].isRememberOperation()) operations[i]=array[i];
+        }
+        RenderRecalculateButton();
     }
 }

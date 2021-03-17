@@ -24,4 +24,5 @@
     <string name="changeCurrencyAlert">Switching currency will lead to data loss</string>
     <string name="saveRecordAlert">Do you want to finish filling and save?</string>
     <string name="historyHeader">History</string>
+    <string name="rememberRate">Remember rate</string>
 </resources>

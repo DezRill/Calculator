@@ -88,7 +88,6 @@ public class SettingsActivity extends AppCompatActivity {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         setSettings();
-        SaveSettings();
         BackToMainMenu();
     }
 
@@ -120,7 +119,6 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode==KeyEvent.KEYCODE_BACK) {
             setSettings();
-            SaveSettings();
             BackToMainMenu();
         }
         return super.onKeyDown(keyCode, event);
@@ -165,20 +163,6 @@ public class SettingsActivity extends AppCompatActivity {
         catch (Exception e) {
             UAHDefaultRadioButton.setChecked(true);
             setCheckedBySystemLanguage();
-        }
-    }
-
-    private void SaveSettings()
-    {
-        try {
-            setSettings();
-            FileOutputStream fos=getApplicationContext().openFileOutput("settings.dat", Context.MODE_PRIVATE);
-            ObjectOutputStream oos=new ObjectOutputStream(fos);
-            oos.writeObject(settings);
-            oos.close();
-            fos.close();
-        }
-        catch (IOException e) {
         }
     }
 

@@ -1,7 +1,9 @@
 package com.dezrill.support;
 
-public class Operation {
-    private boolean operation;
+import java.io.Serializable;
+
+public class Operation implements Serializable {
+    private boolean operation, rememberOperation;
     private double operationValue;
     private String currencyOperation;
 
@@ -18,6 +20,10 @@ public class Operation {
         this.currencyOperation = currencyOperation;
     }
 
+    public void setRememberOperation(boolean rememberOperation) {
+        this.rememberOperation = rememberOperation;
+    }
+
     public boolean isOperation() {
         return operation;
     }
@@ -28,5 +34,9 @@ public class Operation {
 
     public String getCurrencyOperation() {
         return currencyOperation;
+    }
+
+    public boolean isRememberOperation() {
+        return rememberOperation;
     }
 }

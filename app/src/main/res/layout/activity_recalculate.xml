@@ -67,13 +67,17 @@
                 android:fontFamily="sans-serif-light"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/changeOperationButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="5dp"
                 android:background="#C687D6"
+                android:gravity="center"
                 android:insetLeft="0dp"
                 android:insetTop="0dp"
                 android:insetRight="0dp"
@@ -82,10 +86,12 @@
                 android:minHeight="0dp"
                 android:onClick="onClickChangeOperation"
                 android:paddingLeft="0dp"
+                android:paddingTop="0dp"
                 android:paddingRight="0dp"
+                android:paddingBottom="0dp"
                 android:text="ᐸ"
                 android:textColor="#B36DCB"
-                android:textSize="24sp"
+                android:textSize="36sp"
                 app:backgroundTint="#C687D6" />
 
             <TextView
@@ -98,7 +104,7 @@
                 android:gravity="center_vertical"
                 android:text="0"
                 android:textColor="@color/white"
-                android:textSize="28sp" />
+                android:textSize="56sp" />
 
             <ImageButton
                 android:id="@+id/deleteLastButton"
@@ -116,14 +122,32 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="vertical">
+            android:layout_height="55dp"
+            android:gravity="right">
+
+            <RadioButton
+                android:id="@+id/rememberRateRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:background="#C687D6"
+                android:button="@drawable/radio_icons"
+                android:checked="false"
+                android:fontFamily="sans-serif-thin"
+                android:gravity="center|top"
+                android:layoutDirection="rtl"
+                android:onClick="onClickRememberRate"
+                android:text="@string/rememberRate"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:buttonTint="@color/white" />
 
             <Spinner
                 android:id="@+id/currencySpinner"
-                android:layout_width="85dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center|right"
+                android:layout_width="110dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center|right|top"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/recount_gradient" />
         </LinearLayout>
     </LinearLayout>
