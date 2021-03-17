@@ -26,6 +26,7 @@ import com.dezrill.calculator.R;
 import com.dezrill.support.CustomMainListViewAdapter;
 import com.dezrill.support.HistoryItem;
 import com.dezrill.support.ItemInList;
+import com.dezrill.support.Operation;
 import com.dezrill.support.Settings;
 
 import java.io.FileInputStream;
@@ -54,9 +55,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView sumValueTextView;
     private ArrayList<HistoryItem> history_items;
     private Animation blink;
-    private boolean operation;
-    private double operationValue=0;
-    private String currencyOperation;
+    //private boolean operation;
+    //private double operationValue;
+    //private String currencyOperation;
+    private Operation[] operations;
     private Button recalculateButton;
     private static final int SECOND_ACTIVITY_REQUEST_CODE=0;
 
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         currenciesGroup=findViewById(R.id.currenciesGroup);
         sumValueTextView=findViewById(R.id.sumValueTextView);
         recalculateButton=findViewById(R.id.recalculateButton);
+        operations=new Operation[4];
 
         setRadioButtons();
         SetAdapter();
@@ -89,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
             NotEmpty(findViewById(view.getId()));
         }
         else RenderListView();
+        activeRadioButton=findViewById(currenciesGroup.getCheckedRadioButtonId());
+        RenderRecalculateButton();
     }
 
     public void onClickOpenSettings(View view) {
@@ -137,12 +142,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 items.clear();
                 RenderListView();
-                if (operationValue!=0) {
-                    String str=String.valueOf(operationValue);
-                    if (str.substring(str.indexOf(".")).equals(".0")) str=String.format("%.0f", operationValue);
-                    else str=String.format("%.2f", operationValue);
-                    if (operation) recalculateButton.setText("×" + str + " = " + "0.00" + " " + currencyOperation);
-                    else recalculateButton.setText("÷" + str + " = " + "0.00" + " " + currencyOperation);
+                if (operations[getIndexForArray()]!=null) {
+                    String str=String.valueOf(operations[getIndexForArray()].getOperationValue());
+                    if (str.substring(str.indexOf(".")).equals(".0")) str=String.format("%.0f", operations[getIndexForArray()].getOperationValue());
+                    else str=String.format("%.2f", operations[getIndexForArray()].getOperationValue());
+                    if (operations[getIndexForArray()].isOperation()) recalculateButton.setText("×" + str + " = " + "0.00" + " " + operations[getIndexForArray()].getCurrencyOperation());
+                    else recalculateButton.setText("÷" + str + " = " + "0.00" + " " + operations[getIndexForArray()].getCurrencyOperation());
                 }
             }
         });
@@ -173,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     SaveHistory();
                     RenderListView();
+                    RenderRecalculateButton();
                 }
             });
 
@@ -186,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         view.startAnimation(blink);
         Intent intent=new Intent(MainActivity.this, RecalculateActivity.class);
         intent.putExtra("Currency", activeRadioButton.getText().toString());
-        if (operationValue!=0) intent.putExtra("OperationValue", operationValue);
+        if (operations[getIndexForArray()]!=null) intent.putExtra("OperationValue", operations[getIndexForArray()].getOperationValue());
         startActivityForResult(intent,SECOND_ACTIVITY_REQUEST_CODE);
     }
 
@@ -451,31 +457,24 @@ public class MainActivity extends AppCompatActivity {
             sumValueTextView.setText(str);
         }
 
-        if (operationValue!=0) {
-            String str=String.valueOf(operationValue);
-            if (str.substring(str.indexOf(".")).equals(".0")) str=String.format("%.0f", operationValue);
-            else str=String.format("%.2f", operationValue);
-            if (operation) recalculateButton.setText("×" + str + " = " + String.format("%.2f",Double.parseDouble(sumValueTextView.getText().toString())*operationValue) + " " + currencyOperation);
-            else recalculateButton.setText("÷" + str + " = " + String.format("%.2f",Double.parseDouble(sumValueTextView.getText().toString())/operationValue) + " " + currencyOperation);
-            if (recalculateButton.getText().toString().length()>=18) {
-                ViewGroup.LayoutParams lp=recalculateButton.getLayoutParams();
-                lp.width= ViewGroup.LayoutParams.WRAP_CONTENT;
-                recalculateButton.setLayoutParams(lp);
-            }
-            else {
-                ViewGroup.LayoutParams lp=recalculateButton.getLayoutParams();
-                lp.width=415;
-                recalculateButton.setLayoutParams(lp);
-            }
-        }
+        RenderRecalculateButton();
     }
 
     private void BackFromRecalculate(Intent data) {
         if (data.getDoubleExtra("Result", 0)!=0) {
-            operationValue=data.getDoubleExtra("Result",0);
-            operation=data.getBooleanExtra("Operation", true);
-            currencyOperation=data.getStringExtra("Currency");
+            Operation tmp=new Operation();
+            tmp.setOperationValue(data.getDoubleExtra("Result",0));
+            tmp.setOperation(data.getBooleanExtra("Operation", true));
+            tmp.setCurrencyOperation(data.getStringExtra("Currency"));
+            operations[getIndexForArray()]=tmp;
         }
+    }
+
+    private int getIndexForArray() {
+        if (activeRadioButton.getText().toString().equals("UAH")) return 0;
+        else if (activeRadioButton.getText().toString().equals("USD")) return 1;
+        else if (activeRadioButton.getText().toString().equals("EUR")) return 2;
+        else return 3;
     }
 
     private void LoadLanguage(String lang)
@@ -505,10 +504,37 @@ public class MainActivity extends AppCompatActivity {
                 currenciesGroup.check(button.getId());
                 items.clear();
                 RenderListView();
+                RenderRecalculateButton();
             }
         });
 
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
+    }
+
+    private void RenderRecalculateButton() {
+        if (operations[getIndexForArray()]!=null) {
+            String str=String.valueOf(operations[getIndexForArray()].getOperationValue());
+            if (str.substring(str.indexOf(".")).equals(".0")) str=String.format("%.0f", operations[getIndexForArray()].getOperationValue());
+            else str=String.format("%.2f", operations[getIndexForArray()].getOperationValue());
+            if (operations[getIndexForArray()].isOperation()) recalculateButton.setText("×" + str + " = " + String.format("%.2f",Double.parseDouble(sumValueTextView.getText().toString())*operations[getIndexForArray()].getOperationValue()) + " " + operations[getIndexForArray()].getCurrencyOperation());
+            else recalculateButton.setText("÷" + str + " = " + String.format("%.2f",Double.parseDouble(sumValueTextView.getText().toString())/operations[getIndexForArray()].getOperationValue()) + " " + operations[getIndexForArray()].getCurrencyOperation());
+            if (recalculateButton.getText().toString().length()>=18) {
+                ViewGroup.LayoutParams lp=recalculateButton.getLayoutParams();
+                lp.width= ViewGroup.LayoutParams.WRAP_CONTENT;
+                recalculateButton.setLayoutParams(lp);
+            }
+            else {
+                ViewGroup.LayoutParams lp=recalculateButton.getLayoutParams();
+                lp.width=413;
+                recalculateButton.setLayoutParams(lp);
+            }
+        }
+        else {
+            ViewGroup.LayoutParams lp=recalculateButton.getLayoutParams();
+            lp.width=413;
+            recalculateButton.setLayoutParams(lp);
+            recalculateButton.setText(R.string.recalculate);
+        }
     }
 }
