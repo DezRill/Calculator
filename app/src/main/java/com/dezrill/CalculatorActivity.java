@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class CalculatorActivity extends AppCompatActivity {
-    private TextView chosenValueTextView, sumValueTextView, resultTextView;
+    private TextView chosenValueTextView, sumValueTextView, plusTextView, resultTextView;
     private Animation blink;
     private ArrayList<ItemInList> items;
     int position;
@@ -33,6 +33,7 @@ public class CalculatorActivity extends AppCompatActivity {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         chosenValueTextView=findViewById(R.id.chosenValueTextView);
         sumValueTextView=findViewById(R.id.sumValueTextView);
+        plusTextView=findViewById(R.id.plusTextView);
         resultTextView=findViewById(R.id.resultTextView);
 
         Intent intent=getIntent();
@@ -40,8 +41,8 @@ public class CalculatorActivity extends AppCompatActivity {
         position=intent.getIntExtra("Position", 0);
 
         chosenValueTextView.setText(items.get(position).getDenomination()+" "+items.get(position).getCurrency());
-        sumValueTextView.setText(items.get(position).getCount());
-        resultTextView.setText(items.get(position).getSum()+" "+items.get(position).getCurrency());
+        plusTextView.setText(items.get(position).getCount());
+        resultTextView.setText("= "+items.get(position).getSum()+" "+items.get(position).getCurrency());
     }
 
     public void onClickBackToMain(View view) {
@@ -53,12 +54,24 @@ public class CalculatorActivity extends AppCompatActivity {
     public void onClickDeleteLast(View view) {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
-        String str=sumValueTextView.getText().toString();
-        if (str.length()==1) str="0";
-        else if (str.substring(str.length()-2).equals(" 0")) str=str.substring(0,str.length()-4);
-        else str=str.substring(0,str.length()-1);
-        if (str.substring(str.length()-1).equals(" ")) str+="0";
-        sumValueTextView.setText(str);
+        String str1=plusTextView.getText().toString();
+        String str2=sumValueTextView.getText().toString();
+        counts=str2.split(" \\+ ");
+        if (str1.length()==1 && !str1.equals("0")) str1="0";
+        else if (counts.length>1 && str1.equals("0")) {
+            str1=counts[counts.length-1];
+            str2="";
+            for (int i=0;i<counts.length-1;i++) {
+                str2+=counts[i]+" + ";
+            }
+        }
+        else if (counts.length==1 && str1.equals("0") && !counts[0].equals("")){
+            str1=counts[0];
+            str2="";
+        }
+        else if (!str1.equals("0")) str1=str1.substring(0,str1.length()-1);
+        plusTextView.setText(str1);
+        sumValueTextView.setText(str2);
         result=0;
         SumAll();
     }
@@ -66,21 +79,20 @@ public class CalculatorActivity extends AppCompatActivity {
     public void onClickDeleteAll(View view) {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
-        sumValueTextView.setText("0");
-        resultTextView.setText("= 0.00" + items.get(0).getCurrency());
+        sumValueTextView.setText("");
+        plusTextView.setText("0");
+        resultTextView.setText("= 0.00 " + items.get(0).getCurrency());
     }
 
     public void onClickNumber(View view) {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         Button btn=findViewById(view.getId());
-        String str=sumValueTextView.getText().toString();
-        if (!TooMuch()){
-            if (str.length()>1)
-                if (str.substring(str.length()-2).equals(" 0")) str=str.substring(0,str.length()-1);
-            if (str.length()==1 && str.equals("0")) str="";
+        String str=plusTextView.getText().toString();
+        if (plusTextView.length()<7){
+            if (plusTextView.getText().toString().equals("0")) str="";
             str+=btn.getText();
-            sumValueTextView.setText(str);
+            plusTextView.setText(str);
             result=0;
             SumAll();
         }
@@ -89,7 +101,8 @@ public class CalculatorActivity extends AppCompatActivity {
     public void onClickPlus(View view) {
         blink= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
-        sumValueTextView.setText(sumValueTextView.getText()+" + 0");
+        sumValueTextView.setText(sumValueTextView.getText().toString()+plusTextView.getText().toString()+" + ");
+        plusTextView.setText("0");
     }
 
     public void onClickOK(View view) {
@@ -99,8 +112,9 @@ public class CalculatorActivity extends AppCompatActivity {
             int count=0;
             String string=String.format(Locale.ROOT,"%.2f", result);
             for (String str:counts) {
-                count+=Integer.parseInt(str);
+                if (!sumValueTextView.getText().toString().equals(""))count+=Integer.parseInt(str);
             }
+            count+=Integer.parseInt(plusTextView.getText().toString());
             items.get(position).setCount(String.valueOf(count));
             items.get(position).setSum(string);
         }
@@ -120,17 +134,10 @@ public class CalculatorActivity extends AppCompatActivity {
         String str=sumValueTextView.getText().toString();
         counts=str.split(" \\+ ");
         for (int i=0;i<counts.length;i++) {
-            result=(Integer.parseInt(counts[i])*Double.parseDouble(items.get(position).getDenomination()))+result;
+            if (!sumValueTextView.getText().toString().equals(""))result=(Integer.parseInt(counts[i])+Integer.parseInt(plusTextView.getText().toString()))*Double.parseDouble(items.get(position).getDenomination());
+            else result=Integer.parseInt(plusTextView.getText().toString())*Double.parseDouble(items.get(position).getDenomination());
         }
         str=String.format(Locale.ROOT,"%.2f", result);
         resultTextView.setText("= "+str+" "+ items.get(position).getCurrency());
-    }
-
-    private boolean TooMuch()
-    {
-        String str=sumValueTextView.getText().toString();
-        String[] needLast=str.split(" \\+ ");
-        if (needLast[needLast.length-1].length()>6) return true;
-        else return false;
     }
 }

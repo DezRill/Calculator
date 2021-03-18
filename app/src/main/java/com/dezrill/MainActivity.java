@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        operations=new Operation[4];
         LoadSettings();
         setContentView(R.layout.activity_main);
 
@@ -75,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         currenciesGroup=findViewById(R.id.currenciesGroup);
         sumValueTextView=findViewById(R.id.sumValueTextView);
         recalculateButton=findViewById(R.id.recalculateButton);
+        operations=new Operation[4];
 
         setRadioButtons();
         SetAdapter();
@@ -501,12 +501,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void LoadLanguage(String lang)
     {
-        String languageToLoad=lang;
-        Locale locale=new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config=new Configuration();
-        config.locale=locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        try {
+            String languageToLoad=lang;
+            Locale locale=new Locale(languageToLoad);
+            Locale.setDefault(locale);
+            Configuration config=new Configuration();
+            config.locale=locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        }
+        catch (Exception e) {}
     }
 
     private void NotEmpty(RadioButton button) {

@@ -43,7 +43,7 @@
     <LinearLayout
         android:id="@+id/calculateLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="145dp"
+        android:layout_height="165dp"
         android:background="#C687D6"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"

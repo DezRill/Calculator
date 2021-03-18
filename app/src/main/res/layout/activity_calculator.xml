@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/calculateLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="145dp"
+        android:layout_height="165dp"
         android:background="#C687D6"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,8 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-light"
+                android:layout_marginTop="25dp"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -47,24 +46,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
-                    android:layout_weight="1"
+                    android:layout_marginEnd="3dp"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
+                    android:paddingTop="5dp"
                     android:text="X"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/sumValueTextView"
-                    android:layout_width="315dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_marginEnd="3dp"
                     android:fontFamily="sans-serif-light"
                     android:gravity="center_vertical"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/plusTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center|left"
                     android:text="0"
                     android:textColor="@color/white"
-                    android:textSize="28sp" />
+                    android:textSize="58sp" />
             </LinearLayout>
 
             <TextView
