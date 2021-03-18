@@ -55,7 +55,7 @@ public class RecalculateActivity extends AppCompatActivity {
             radioChecked=true;
         }
 
-        currencyTextView.setText(intent.getStringExtra("Currency")+ "×");
+        currencyTextView.setText(intent.getStringExtra("Currency")+ " ×");
         FillSpinner(intent.getStringExtra("Currency"));
     }
 
@@ -119,13 +119,13 @@ public class RecalculateActivity extends AppCompatActivity {
         blink=AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
         view.startAnimation(blink);
         if (multiplication) {
-            changeOperationButton.setText("ᐳ");
-            currencyTextView.setText(currencyTextView.getText().toString().substring(0,currencyTextView.getText().toString().length()-1)+"÷");
+            changeOperationButton.setText("ᐸ");
+            currencyTextView.setText(currencyTextView.getText().toString().substring(0,currencyTextView.getText().toString().length()-2)+" ÷");
             multiplication=false;
         }
         else {
-            changeOperationButton.setText("ᐸ");
-            currencyTextView.setText(currencyTextView.getText().toString().substring(0,currencyTextView.getText().toString().length()-1)+"×");
+            changeOperationButton.setText("ᐳ");
+            currencyTextView.setText(currencyTextView.getText().toString().substring(0,currencyTextView.getText().toString().length()-2)+" ×");
             multiplication=true;
         }
     }

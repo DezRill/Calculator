@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/calculateLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="165dp"
+        android:layout_height="175dp"
         android:background="#C687D6"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"

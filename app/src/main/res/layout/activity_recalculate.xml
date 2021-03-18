@@ -43,7 +43,7 @@
     <LinearLayout
         android:id="@+id/calculateLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="165dp"
+        android:layout_height="175dp"
         android:background="#C687D6"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,7 +67,7 @@
                 android:fontFamily="sans-serif-light"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="30sp" />
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/changeOperationButton"
@@ -89,7 +89,7 @@
                 android:paddingTop="0dp"
                 android:paddingRight="0dp"
                 android:paddingBottom="0dp"
-                android:text="ᐸ"
+                android:text="ᐳ"
                 android:textColor="#B36DCB"
                 android:textSize="36sp"
                 app:backgroundTint="#C687D6" />
@@ -130,6 +130,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="5dp"
                 android:background="#C687D6"
                 android:button="@drawable/radio_icons"
                 android:checked="false"
@@ -137,6 +139,7 @@
                 android:gravity="center|top"
                 android:layoutDirection="rtl"
                 android:onClick="onClickRememberRate"
+                android:paddingRight="7dp"
                 android:text="@string/rememberRate"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -145,7 +148,7 @@
             <Spinner
                 android:id="@+id/currencySpinner"
                 android:layout_width="110dp"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center|right|top"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/recount_gradient" />

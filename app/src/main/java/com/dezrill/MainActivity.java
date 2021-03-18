@@ -551,13 +551,13 @@ public class MainActivity extends AppCompatActivity {
             }
             else {
                 ViewGroup.LayoutParams lp=recalculateButton.getLayoutParams();
-                lp.width=413;
+                lp.width=416;
                 recalculateButton.setLayoutParams(lp);
             }
         }
         else {
             ViewGroup.LayoutParams lp=recalculateButton.getLayoutParams();
-            lp.width=413;
+            lp.width=416;
             recalculateButton.setLayoutParams(lp);
             recalculateButton.setText(R.string.recalculate);
         }
